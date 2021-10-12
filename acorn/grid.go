@@ -1,10 +1,24 @@
 package acorn
 
-import "strings"
+import (
+	"strings"
 
-func (h HTML) GetCol(body string, width *string) string {
+	"github.com/arskang/gomail-acorn-template/acorntypes"
+)
+
+type row struct {
+	Columns []*acorntypes.Col
+}
+
+func (h HTML) NewRow(columns []*acorntypes.Col) *row {
+	return &row{
+		Columns: columns,
+	}
+}
+
+func (g row) getCol(body string, width *string) string {
 	var ancho string
-	switch ancho {
+	switch *width {
 	case "1/4":
 		ancho = "138"
 	case "1/2":
@@ -21,7 +35,14 @@ func (h HTML) GetCol(body string, width *string) string {
 	return `<td class="col" width="` + ancho + `">` + body + `</td>`
 }
 
-func (h HTML) GetRow(columns ...string) string {
+func (g row) GetRow() string {
+	var columns []string
+	if len(g.Columns) > 0 {
+		for _, column := range g.Columns {
+			col := g.getCol(column.Content, column.Width)
+			columns = append(columns, col)
+		}
+	}
 	return `
 	<table cellpadding="0" cellspacing="0" role="presentation" width="100%">
 		<tr>

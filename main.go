@@ -1,24 +1,37 @@
 package acornmail
 
 import (
+	"bytes"
 	"fmt"
+	"html/template"
 
 	"github.com/arskang/gomail-acorn-template/acorn"
 )
 
 type acornEmail struct {
-	HTML *acorn.HTML
+	html *acorn.HTML
 }
 
-func NewAcornEmail() *acornEmail {
+func NewAcornEmailComponents() *acornEmail {
 	return &acornEmail{
-		HTML: &acorn.HTML{},
+		html: &acorn.HTML{},
 	}
 }
 
-func Example() {
-	acorn := NewAcornEmail()
-	row := acorn.HTML.GetRow("Hola")
-	body := acorn.HTML.GetBoilerPlate(row)
-	fmt.Println(body)
+func GetHTMLString(temp, name string, params map[string]interface{}) (string, error) {
+	t, err := template.New(name).Parse(temp)
+	if err != nil {
+		return "", err
+	}
+
+	var tpl bytes.Buffer
+
+	err = t.Execute(&tpl, params)
+	if err != nil {
+		return "", err
+	}
+
+	fmt.Println(tpl.String())
+
+	return tpl.String(), nil
 }

@@ -9,7 +9,7 @@ func (h HTML) GetBoilerPlate(body string) string {
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="x-apple-disable-message-reformatting">
-		<title>Acorn Email Framework</title>
+		<title>{{.Title}}</title>
 		<!--[if mso]>
 		<xml>
 		<o:OfficeDocumentSettings>

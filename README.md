@@ -1,10 +1,82 @@
 # Go Acorn Mail
 
-### [Acorn Email Framework](http://docs.thememountain.com/acorn/)
+##### Librerías
+- [Acorn Email Framework](http://docs.thememountain.com/acorn/)
 
-#### Grid
+##### Instalación
+```go
+go get github.com/arskang/gomail-acorn-template
+```
 
-- Anchos de columnas:
+##### Métodos
+```go
+import (
+    acornmail "github.com/arskang/gomail-acorn-template"
+)
+```
+
+- *GetHTMLString*: Obtener un html con parámetros dinámicos
+```go
+html, err = acornmail.GetHTMLString("<div>{{.Title}}</div>", map[string]interface{}{
+    "Title": "Hola mundo",
+})
+if err != nil {
+    panic(err)
+}
+fmt.Println(html)
+```
+
+- *NewAcornEmailComponents*: Obtener el tipo **acornEmail** para poder construir un template
+```go
+acorn := acornmail.NewAcornEmailComponents()
+```
+
+###### Components
+
+- **GetBoilerPlate**
+```go
+template := acornmail.GetBoilerPlate("content")
+```
+
+- **Row**
+```go
+w := "1/4"
+r := acornmail.NewRow(&[]*acorntypes.Col{
+    {
+        Content: "Content",
+        Width: &w,
+    }
+})
+row := r.GetRow()
+```
+
+- **Alerts**
+```go
+content := "Aceptar"
+hexColor := "#008f38"
+outlined := nil // *bool
+r := acornmail.NewAlert(content, hexColor, outlined)
+row := r.GetRow()
+```
+
+##### Types
+```go
+import "github.com/arskang/gomail-acorn-template/acorntypes"
+```
+
+- *Col*
+```go
+w := "1/4"
+col := acorntypes.Col {
+    Content: "Content", // string
+    Width: &w, // *string
+}
+```
+
+##### Utilidades
+
+- *Ancho de columnas*
+
 ```go
 var width *string
 
