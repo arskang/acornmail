@@ -5,16 +5,17 @@ type alert struct {
 	Outlined          bool
 }
 
-func (h HTML) NewAlert(content, hex string, outlined *bool) *alert {
+func (h HTML) NewAlert(content, hex string, outlined *bool) string {
 	var out bool
 	if outlined != nil && *outlined {
 		out = true
 	}
-	return &alert{
+	alert := &alert{
 		Content:  content,
 		HexColor: hex,
 		Outlined: out,
 	}
+	return alert.getAlert()
 }
 
 func (a alert) getAlertBG() string {
@@ -41,7 +42,7 @@ func (a alert) getAlertOutlined() string {
 	`
 }
 
-func (a alert) GetAlert() string {
+func (a alert) getAlert() string {
 	if a.Outlined {
 		return a.getAlertOutlined()
 	}

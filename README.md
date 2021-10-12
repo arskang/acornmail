@@ -1,14 +1,26 @@
 # Go Acorn Mail
 
-##### Librerías
+#### Librerías
 - [Acorn Email Framework](http://docs.thememountain.com/acorn/)
 
-##### Instalación
+#### Instalación
 ```go
 go get github.com/arskang/gomail-acorn-template
 ```
 
-##### Métodos
+#### Ejemplo
+```go
+acorn := acornmail.NewAcornEmailComponents()
+row := acorn.NewRow([]*acorntypes.Col{
+    {
+        Content: "Hola mundo",
+    },
+})
+html := acorn.GetBoilerPlate(row)
+fmt.Println(html)
+```
+
+#### Métodos
 ```go
 import (
     acornmail "github.com/arskang/gomail-acorn-template"
@@ -31,23 +43,24 @@ fmt.Println(html)
 acorn := acornmail.NewAcornEmailComponents()
 ```
 
-###### Components
+##### Components
 
 - **GetBoilerPlate**
 ```go
-template := acorn.GetBoilerPlate("content")
+boilertemplate := acorn.GetBoilerPlate("content")
+fmt.Println(boilertemplate)
 ```
 
 - **Row**
 ```go
 w := "1/4"
-r := acorn.NewRow(&[]*acorntypes.Col{
+row := acorn.NewRow([]*acorntypes.Col{
     {
         Content: "Content",
         Width: &w,
     }
 })
-row := r.GetRow()
+fmt.Println(row)
 ```
 
 - **Alerts**
@@ -55,11 +68,11 @@ row := r.GetRow()
 content := "Aceptar"
 hexColor := "#008f38"
 outlined := nil // *bool
-r := acorn.NewAlert(content, hexColor, outlined)
-row := r.GetRow()
+alert := acorn.NewAlert(content, hexColor, outlined)
+fmt.Println(alert)
 ```
 
-##### Types
+#### Types
 ```go
 import "github.com/arskang/gomail-acorn-template/acorntypes"
 ```
@@ -73,7 +86,7 @@ col := acorntypes.Col {
 }
 ```
 
-##### Utilidades
+#### Utilidades
 
 - *Ancho de columnas*
 
