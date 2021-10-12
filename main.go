@@ -8,14 +8,8 @@ import (
 	"github.com/arskang/gomail-acorn-template/acorn"
 )
 
-type acornEmail struct {
-	html *acorn.HTML
-}
-
-func NewAcornEmailComponents() *acornEmail {
-	return &acornEmail{
-		html: &acorn.HTML{},
-	}
+func NewAcornEmailComponents() *acorn.HTML {
+	return &acorn.HTML{}
 }
 
 func GetHTMLString(temp, name string, params map[string]interface{}) (string, error) {

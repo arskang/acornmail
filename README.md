@@ -35,13 +35,13 @@ acorn := acornmail.NewAcornEmailComponents()
 
 - **GetBoilerPlate**
 ```go
-template := acornmail.GetBoilerPlate("content")
+template := acorn.GetBoilerPlate("content")
 ```
 
 - **Row**
 ```go
 w := "1/4"
-r := acornmail.NewRow(&[]*acorntypes.Col{
+r := acorn.NewRow(&[]*acorntypes.Col{
     {
         Content: "Content",
         Width: &w,
@@ -55,7 +55,7 @@ row := r.GetRow()
 content := "Aceptar"
 hexColor := "#008f38"
 outlined := nil // *bool
-r := acornmail.NewAlert(content, hexColor, outlined)
+r := acorn.NewAlert(content, hexColor, outlined)
 row := r.GetRow()
 ```
 
