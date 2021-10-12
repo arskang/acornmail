@@ -10,10 +10,9 @@ type row struct {
 	Columns []*acorntypes.Col
 }
 
-func (h HTML) NewRow(columns []*acorntypes.Col) *row {
-	return &row{
-		Columns: columns,
-	}
+func (h HTML) NewRow(columns []*acorntypes.Col) string {
+	row := &row{Columns: columns}
+	return row.getRow()
 }
 
 func (g row) getCol(body string, width *string) string {
@@ -35,7 +34,7 @@ func (g row) getCol(body string, width *string) string {
 	return `<td class="col" width="` + ancho + `">` + body + `</td>`
 }
 
-func (g row) GetRow() string {
+func (g row) getRow() string {
 	var columns []string
 	if len(g.Columns) > 0 {
 		for _, column := range g.Columns {
