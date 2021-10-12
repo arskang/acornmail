@@ -1,6 +1,8 @@
 package acorn
 
-func (h HTML) GetBoilerPlate(body string) string {
+import "strings"
+
+func (h HTML) GetBoilerPlate(elements ...string) string {
 	return `
 	<!DOCTYPE html>
 	<html lang="es" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -136,17 +138,17 @@ func (h HTML) GetBoilerPlate(body string) string {
 		<div lang="es" style="display:none;"><!-- Add your preheader text here --></div>
 
 		<table lang="es" bgcolor="#EEEEEE" cellpadding="16" cellspacing="0" role="presentation" width="100%">
-		<tr>
-			<td align="center">
-			<table class="container" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" role="presentation" width="600">
-				<tr>
-				<td align="left">
-					` + body + `
+			<tr>
+				<td align="center">
+					<table class="container" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" role="presentation" width="600">
+						<tr>
+							<td align="left">
+								` + strings.Join(elements, " ") + `
+							</td>
+						</tr>
+					</table>
 				</td>
-				</tr>
-			</table>
-			</td>
-		</tr>
+			</tr>
 		</table>
 
 	</body>

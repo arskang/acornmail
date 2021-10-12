@@ -11,7 +11,7 @@ go get github.com/arskang/gomail-acorn-template
 #### Ejemplo
 ```go
 acorn := acornmail.NewAcornEmailComponents()
-row := acorn.NewRow([]*acorntypes.Col{
+row := acorn.NewRow([]*acorntypes.ColParams{
     {
         Content: "Hola mundo",
     },
@@ -29,7 +29,7 @@ import (
 
 - *GetHTMLString*: Obtener un html con parámetros dinámicos
 ```go
-html, err = acornmail.GetHTMLString("<div>{{.Title}}</div>", map[string]interface{}{
+html, err := acornmail.GetHTMLString("<div>{{.Title}}</div>", map[string]interface{}{
     "Title": "Hola mundo",
 })
 if err != nil {
@@ -47,14 +47,18 @@ acorn := acornmail.NewAcornEmailComponents()
 
 - **GetBoilerPlate**
 ```go
-boilertemplate := acorn.GetBoilerPlate("content")
+boilertemplate := acorn.GetBoilerPlate(
+    "Header",
+    "Body",
+    "Footer",
+)
 fmt.Println(boilertemplate)
 ```
 
 - **Row**
 ```go
 w := "1/4"
-row := acorn.NewRow([]*acorntypes.Col{
+row := acorn.NewRow([]*acorntypes.ColParams{
     {
         Content: "Content",
         Width: &w,
@@ -72,6 +76,17 @@ alert := acorn.NewAlert(content, hexColor, outlined)
 fmt.Println(alert)
 ```
 
+- **Buttons**
+```go
+button := acorn.NewButton(&acorntypes.ButtonParams {
+    Text: "Aceptar",
+    Link: "https://google.com",
+    HexColor: "#008f38",
+    // Align,
+}, nil)
+fmt.Println(button)
+```
+
 #### Types
 ```go
 import "github.com/arskang/gomail-acorn-template/acorntypes"
@@ -80,9 +95,19 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
 - *Col*
 ```go
 w := "1/4"
-col := acorntypes.Col {
+colParams := acorntypes.ColParams {
     Content: "Content", // string
     Width: &w, // *string
+}
+```
+
+- *Button*
+```go
+buttonParams := acorntypes.ButtonParams {
+    Text: "Aceptar",
+    Link: "https://google.com",
+    HexColor: "#008f38",
+    // Align,
 }
 ```
 
@@ -91,19 +116,19 @@ col := acorntypes.Col {
 - *Ancho de columnas*
 
 ```go
-var width *string
-
 // Grid a 4 columnas
-width = "1/4"
-width = "1/2"
-width = "3/4"
+w = "1/4"
+w = "1/2"
+w = "3/4"
 
 // Grid a 3 columnas
-width = "1/3"
-width = "2/3"
+w = "1/3"
+w = "2/3"
 
 // Todo el ancho
-width = nil
-width = "1"
-width = "Cualquier otra cosa"
+w = nil
+w = "1"
+w = "Cualquier otra cosa"
+
+width := acorntypes.String(w)
 ```

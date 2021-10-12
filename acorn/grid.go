@@ -7,29 +7,29 @@ import (
 )
 
 type row struct {
-	Columns []*acorntypes.Col
+	Columns []*acorntypes.ColParams
 }
 
-func (h HTML) NewRow(columns []*acorntypes.Col) string {
+func (h HTML) NewRow(columns []*acorntypes.ColParams) string {
 	row := &row{Columns: columns}
 	return row.getRow()
 }
 
 func (g row) getCol(body string, width *string) string {
-	var ancho string
-	switch *width {
-	case "1/4":
-		ancho = "138"
-	case "1/2":
-		ancho = "276"
-	case "3/4":
-		ancho = "414"
-	case "1/3":
-		ancho = "184"
-	case "2/3":
-		ancho = "368"
-	default:
-		ancho = "100%"
+	var ancho = "100%"
+	if width != nil {
+		switch *width {
+		case "1/4":
+			ancho = "138"
+		case "1/2":
+			ancho = "276"
+		case "3/4":
+			ancho = "414"
+		case "1/3":
+			ancho = "184"
+		case "2/3":
+			ancho = "368"
+		}
 	}
 	return `<td class="col" width="` + ancho + `">` + body + `</td>`
 }
