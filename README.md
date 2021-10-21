@@ -138,48 +138,35 @@ buttonParams := acorntypes.ButtonParams {
 - *Ancho de columnas*
 
 ```go
-// Grid a 4 columnas
-w = "1/4"
-w = "1/2"
-w = "3/4"
-
-// Grid a 3 columnas
-w = "1/3"
-w = "2/3"
-
-// Todo el ancho
-w = nil
-w = "1"
-w = "Cualquier otra cosa"
-
-width := acorntypes.String(w)
+widthColumn := acornstyles.GetWidthColumns()
+fmt.Println(widthColumn.Full) // %100
+fmt.Println(widthColumn.Quarter) // 1/4
+fmt.Println(widthColumn.Medium) // 1/2
+fmt.Println(widthColumn.ThreeQuarters) // 3/4
+fmt.Println(widthColumn.OneThird) // 1/3
+fmt.Println(widthColumn.TwiThird) // 2/3
 ```
-| 1/3 | 1/3 | 1/3 |
-| --- | --- | --- |
 
-| 1/3 | 1/3 + 1/3 |
-| --- | --- |
+![Grid three](./assets/grid-three.png)
+![Grid four](./assets/grid-four.png)
 
-| 1/3 + 1/3 | 1/3 |
-| --- | --- | 
+- *Colores*
 
-| 1/4 | 1/4 | 1/4 | 1/4 |
-| -- | -- | -- | -- |
+Material palette
 
-| 1/4 + 1/4 | 1/4 | 1/4 |
-| --- | --- | --- |
+```go
+acornColor := acornstyles.GetColors()
+red50 := acornColor.Red._50
+fmt.Println(red50)
 
-| 1/4 | 1/4 + 1/4 | 1/4 |
-| --- | --- | --- |
+// Only hexadecimal string
+customColor, err := acornstyles.NewAcornColor("#fea800")
+if err != nil {
+    panic(err)
+}
+fmt.Println(customColor)
+```
 
-| 1/4 | 1/4 | 1/4 + 1/4 |
-| --- | --- | --- |
-
-| 1/4 + 1/4 | 1/4 + 1/4 |
-| --- | --- |
-
-| 1/4 + 1/4 + 1/4 | 1/4 |
-| --- | --- |
-
-| 1/4 | 1/4 + 1/4 + 1/4 |
-| --- | --- |
+![Material color 01](./assets/material-color-01.png)
+![Material color 02](./assets/material-color-02.png)
+![Material color 03](./assets/material-color-03.png)
