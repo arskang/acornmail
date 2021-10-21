@@ -1,6 +1,7 @@
 package acorn
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/arskang/gomail-acorn-template/acorntypes"
@@ -15,30 +16,26 @@ func (h HTML) NewRow(columns []*acorntypes.ColParams) string {
 	return row.getRow()
 }
 
-func (g row) getCol(body string, width *string) string {
-	var ancho = "100%"
-	if width != nil {
-		switch *width {
-		case "1/4":
-			ancho = "138"
-		case "1/2":
-			ancho = "276"
-		case "3/4":
-			ancho = "414"
-		case "1/3":
-			ancho = "184"
-		case "2/3":
-			ancho = "368"
-		}
+func (g row) getCol(body string, styles *acorntypes.ColumnStyles) string {
+	width := "100%"
+	if styles.Width != nil {
+		width = string(*styles.Width)
 	}
-	return `<td class="col" width="` + ancho + `">` + body + `</td>`
+	align := "left"
+	if styles.Align != nil {
+		width = string(*styles.Align)
+	}
+	return fmt.Sprintf(
+		`<td class="col" align:"%s" width="%s">%s</td>`,
+		align, width, body,
+	)
 }
 
 func (g row) getRow() string {
 	var columns []string
 	if len(g.Columns) > 0 {
 		for _, column := range g.Columns {
-			col := g.getCol(column.Content, column.Width)
+			col := g.getCol(column.Content, column.Styles)
 			columns = append(columns, col)
 		}
 	}

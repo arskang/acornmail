@@ -1,31 +1,34 @@
-# Go Acorn Mail
+# Gomail Acorn Template
+
++ [Librerías](#librerías)
++ [Instalación](#instalación)
++ [Importación](#importación)
++ [Ejemplo](#ejemplo)
++ [Métodos](#métodos)
++ [Componentes](#componentes)
++ [Types](#types)
++ [Utilidades](#utilidades)
 
 #### Librerías
+Proyecto original:
 - [Acorn Email Framework](http://docs.thememountain.com/acorn/)
 
 #### Instalación
+```
+go get -u github.com/arskang/gomail-acorn-template
+```
+
+#### Importación
 ```go
-go get github.com/arskang/gomail-acorn-template
+import acornmail "github.com/arskang/gomail-acorn-template"
 ```
 
 #### Ejemplo
 ```go
-acorn := acornmail.NewAcornEmailComponents()
-row := acorn.NewRow([]*acorntypes.ColParams{
-    {
-        Content: "Hola mundo",
-    },
-})
-html := acorn.GetBoilerPlate(row)
-fmt.Println(html)
+// En proceso...
 ```
 
 #### Métodos
-```go
-import (
-    acornmail "github.com/arskang/gomail-acorn-template"
-)
-```
 
 - *GetHTMLString*: Obtener un html con parámetros dinámicos
 ```go
@@ -43,7 +46,7 @@ fmt.Println(html)
 acorn := acornmail.NewAcornEmailComponents()
 ```
 
-##### Components
+##### Componentes
 
 - **GetBoilerPlate**
 ```go
@@ -51,20 +54,39 @@ boilertemplate := acorn.GetBoilerPlate(
     "Header",
     "Body",
     "Footer",
+    // componentes...
 )
 fmt.Println(boilertemplate)
 ```
 
 - **Row**
 ```go
-w := "1/4"
-row := acorn.NewRow([]*acorntypes.ColParams{
-    {
-        Content: "Content",
-        Width: &w,
-    }
-})
-fmt.Println(row)
+import "github.com/arskang/gomail-acorn-template/acornstyles"
+
+func main() {
+    wColumns := acornstyles.GetWidthColumns()
+    row := acorn.NewRow([]*acorntypes.ColParams{
+        {
+            Content: "1/4 de columna",
+            Styles: &acorntypes.Styles{
+                WidthColumn: wColumns.Quarter,
+            },
+        },
+        {
+            Content: "1/2 de columna",
+            Styles: &acorntypes.Styles{
+                WidthColumn: wColumns.Medium,
+            },
+        },
+        {
+            Content: "1/4 de columna",
+            Styles: &acorntypes.Styles{
+                WidthColumn: wColumns.Quarter,
+            },
+        },
+    })
+    fmt.Println(row)
+}
 ```
 
 - **Alerts**
@@ -132,3 +154,32 @@ w = "Cualquier otra cosa"
 
 width := acorntypes.String(w)
 ```
+| 1/3 | 1/3 | 1/3 |
+| --- | --- | --- |
+
+| 1/3 | 1/3 + 1/3 |
+| --- | --- |
+
+| 1/3 + 1/3 | 1/3 |
+| --- | --- | 
+
+| 1/4 | 1/4 | 1/4 | 1/4 |
+| -- | -- | -- | -- |
+
+| 1/4 + 1/4 | 1/4 | 1/4 |
+| --- | --- | --- |
+
+| 1/4 | 1/4 + 1/4 | 1/4 |
+| --- | --- | --- |
+
+| 1/4 | 1/4 | 1/4 + 1/4 |
+| --- | --- | --- |
+
+| 1/4 + 1/4 | 1/4 + 1/4 |
+| --- | --- |
+
+| 1/4 + 1/4 + 1/4 | 1/4 |
+| --- | --- |
+
+| 1/4 | 1/4 + 1/4 + 1/4 |
+| --- | --- |
