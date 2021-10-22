@@ -30,41 +30,46 @@ func TestExample(t *testing.T) {
 	acorn := acornmail.NewAcornEmailComponents()
 
 	// Utilidades
-	wColumns := acornstyles.GetWidthColumns()
+	widthColumns := acornstyles.GetWidthColumns()
 	colors := acornstyles.GetColors()
 	types := acornstyles.GetTypes()
 	aligns := acornstyles.GetAligns()
 
 	// NewRow
-	row := acorn.NewRow([]*acorntypes.ColParams{
+	row := acorn.NewRow([]*acorntypes.ColumnParams{
 		{
 			Content: "1/4 de columna",
 			Styles: &acorntypes.ColumnStyles{
-				Width: wColumns.Quarter,
+				Width: widthColumns.Quarter,
 			},
 		},
 		{
 			Content: "1/2 de columna",
 			Styles: &acorntypes.ColumnStyles{
-				Width: wColumns.Medium,
+				Width: widthColumns.Medium,
 			},
 		},
 		{
 			Content: "1/4 de columna",
 			Styles: &acorntypes.ColumnStyles{
-				Width: wColumns.Quarter,
+				Width: widthColumns.Quarter,
 			},
 		},
 	})
 
+	// NewAlert
 	alert := acorn.NewAlert(&acorntypes.AlertParams{
-		Content: "Esta es una alerta",
+		Content: "Alert",
+	})
+
+	alertOutlined := acorn.NewAlert(&acorntypes.AlertParams{
+		Content: "Alert",
 		Styles: &acorntypes.AlertStyles{
-			Outlined:  true,
-			TextColor: colors.Pink.M300,
+			Outlined: true,
 		},
 	})
 
+	// NewButton
 	buttonFilled := acorn.NewButton(&acorntypes.ButtonParams{
 		Text: "Filled button",
 		Link: "http://docs.thememountain.com/acorn/",
@@ -90,15 +95,53 @@ func TestExample(t *testing.T) {
 		},
 	})
 
-	fmt.Println(buttonPhill)
+	// NewAccordion
+	accordion := acorn.NewAccordion([]*acorntypes.AccordionParams{
+		{
+			Title:   "Panel 1",
+			Content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+		},
+		{
+			Title:   "Panel 2",
+			Content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+			Styles: &acorntypes.AccordionStyles{
+				Color:        colors.Cyan.M300,
+				TitleColor:   colors.White,
+				ContentColor: colors.Cyan.M300,
+			},
+		},
+	})
+
+	// NewSpacer
+	spacer := acorn.NewSpacer()
+
+	// NewDivider
+	divider := acorn.NewDivider(nil)
+
+	fmt.Println(alert, divider, alertOutlined)
 
 	boilertemplate := acorn.GetBoilerPlate(
 		row,
 		alert,
 		buttonFilled,
 		buttonOutlined,
+		buttonPhill,
+		accordion,
+		spacer,
+		divider,
+		alertOutlined,
 	)
 
-	// fmt.Println(boilertemplate)
 	t.Log(boilertemplate)
+}
+
+func TestBasicExample(t *testing.T) {
+
+	// acorn := acornmail.NewAcornEmailComponents()
+
+	// widthColumns := acornstyles.GetWidthColumns()
+	// colors := acornstyles.GetColors()
+	// types := acornstyles.GetTypes()
+	// aligns := acornstyles.GetAligns()
+
 }

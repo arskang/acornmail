@@ -10,8 +10,8 @@ type button struct {
 }
 
 func (h HTML) NewButton(params *acorntypes.ButtonParams) string {
-	button := &button{Params: params}
-	return button.getButton()
+	b := &button{Params: params}
+	return b.getButton()
 }
 
 func (b button) getButtonOutlined(color, txtColor acorntypes.Color, align acorntypes.Align, fullWidth string) string {

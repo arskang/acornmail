@@ -73,53 +73,75 @@ boilertemplate := acorn.GetBoilerPlate(
 fmt.Println(boilertemplate)
 ```
 
-- **Row**
+- **Grid**
 ```go
-wColumns := acornstyles.GetWidthColumns()
+acorn := acornmail.NewAcornEmailComponents()
 
-row := acorn.NewRow([]*acorntypes.ColParams{
+widthColumns := acornstyles.GetWidthColumns()
+
+row := acorn.NewRow([]*acorntypes.ColumnParams{
     {
         Content: "1/4 de columna",
         Styles: &acorntypes.Styles{
-            WidthColumn: wColumns.Quarter,
+            WidthColumn: widthColumns.Quarter,
         },
     },
     {
         Content: "1/2 de columna",
         Styles: &acorntypes.Styles{
-            WidthColumn: wColumns.Medium,
+            WidthColumn: widthColumns.Medium,
         },
     },
     {
         Content: "1/4 de columna",
         Styles: &acorntypes.Styles{
-            WidthColumn: wColumns.Quarter,
+            WidthColumn: widthColumns.Quarter,
         },
     },
 })
 
-fmt.Println(row)
+boilertemplate := acorn.GetBoilerPlate(row)
+
+fmt.Println(boilertemplate)
 ```
+![Grid](./assets/components-grid.png)
 
 - **Alerts**
 ```go
-colors := acornstyles.GetColors()
+acorn := acornmail.NewAcornEmailComponents()
+
+divider := acorn.NewDivider(nil)
 
 alert := acorn.NewAlert(&acorntypes.AlertParams{
-    Content: "Esta es una alerta",
+    Content: "Alert",
+})
+
+alertOutlined := acorn.NewAlert(&acorntypes.AlertParams{
+    Content: "Alert",
     Styles: &acorntypes.AlertStyles{
-        Outlined:  true,
-        TextColor: colors.Pink.M300,
+        Outlined: true,
     },
 })
 
-fmt.Println(alert)
+boilertemplate := acorn.GetBoilerPlate(
+    alert,
+    divider,
+    alertOutlined,
+)
+
+fmt.Println(boilertemplate)
 ```
+![Grid](./assets/components-alert.png)
 
 - **Buttons**
 ```go
+acorn := acornmail.NewAcornEmailComponents()
+
+widthColumns := acornstyles.GetWidthColumns()
 types := acornstyles.GetTypes()
 aligns := acornstyles.GetAligns()
+
+divider := acorn.NewDivider(nil)
 
 buttonFilled := acorn.NewButton(&acorntypes.ButtonParams{
     Text: "Filled button",
@@ -129,8 +151,6 @@ buttonFilled := acorn.NewButton(&acorntypes.ButtonParams{
     },
 })
 
-fmt.Println(buttonFilled)
-
 buttonOutlined := acorn.NewButton(&acorntypes.ButtonParams{
     Text: "Outlined button",
     Link: "http://docs.thememountain.com/acorn/",
@@ -138,8 +158,6 @@ buttonOutlined := acorn.NewButton(&acorntypes.ButtonParams{
         Type: types.Outlined,
     },
 })
-
-fmt.Println(buttonOutlined)
 
 buttonPhill := acorn.NewButton(&acorntypes.ButtonParams{
     Text: "Pill button",
@@ -150,8 +168,67 @@ buttonPhill := acorn.NewButton(&acorntypes.ButtonParams{
     },
 })
 
-fmt.Println(buttonPhill)
+rowOne := acorn.NewRow([]*acorntypes.ColumnParams{
+    {
+        Content: buttonFilled,
+        Styles: &acorntypes.ColumnStyles{
+            Width: widthColumns.Full,
+        },
+    },
+})
+
+rowTwo := acorn.NewRow([]*acorntypes.ColumnParams{
+    {
+        Content: buttonOutlined,
+        Styles: &acorntypes.ColumnStyles{
+            Width: widthColumns.Medium,
+        },
+    },
+    {
+        Content: buttonPhill,
+        Styles: &acorntypes.ColumnStyles{
+            Width: widthColumns.Medium,
+        },
+    },
+})
+
+boilertemplate := acorn.GetBoilerPlate(
+    rowOne,
+    divider,
+    rowTwo,
+)
+
+fmt.Println(boilertemplate)
 ```
+![Buttons](./assets/components-buttons.png)
+
+- **Accordion**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+colors := acornstyles.GetColors()
+
+accordion := acorn.NewAccordion([]*acorntypes.AccordionParams{
+    {
+        Title:   "Panel 1",
+        Content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    },
+    {
+        Title:   "Panel 2",
+        Content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        Styles: &acorntypes.AccordionStyles{
+            Color:        colors.Cyan.M300,
+            TitleColor:   colors.White,
+            ContentColor: colors.Cyan.M300,
+        },
+    },
+})
+
+boilertemplate := acorn.GetBoilerPlate(accordion)
+
+fmt.Println(boilertemplate)
+```
+![Accordion](./assets/components-accordion.png)
 
 #### Tipos
 
@@ -170,12 +247,14 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
 
 - *Compuestos*
 
-    - ColParams ```acorntypes.ColParams```
-    - ButtonParams ```acorntypes.ButtonParams```
-    - AlertParams ```acorntypes.AlertParams```
+    - ColumnParams ```acorntypes.ColumnParams```
     - ColumnStyles ```acorntypes.ColumnStyles```
+    - ButtonParams ```acorntypes.ButtonParams```
     - ButtonStyles ```acorntypes.ButtonStyles```
+    - AlertParams ```acorntypes.AlertParams```
     - AlertStyles ```acorntypes.AlertStyles```
+    - AccordionParams ```acorntypes.AccordionParams```
+    - AccordionStyles ```acorntypes.AccordionStyles```
 
 #### Estilos
 
@@ -220,8 +299,8 @@ fmt.Println(widthColumn.TwoThird) // 2/3
 - *Colores*
 
 ```go
-acornColor := acornstyles.GetColors()
-red50 := acornColor.Red.M50
+colors := acornstyles.GetColors()
+red50 := colors.Red.M50
 fmt.Println(red50)
 
 // Only hexadecimal string

@@ -9,28 +9,32 @@ import (
 )
 
 type row struct {
-	Params []*acorntypes.ColParams
+	Params []*acorntypes.ColumnParams
 }
 
-func (h HTML) NewRow(params []*acorntypes.ColParams) string {
-	row := &row{Params: params}
-	return row.getRow()
+func (h HTML) NewRow(params []*acorntypes.ColumnParams) string {
+	r := &row{Params: params}
+	return r.getRow()
 }
 
-func (g row) getCol(body string, styles *acorntypes.ColumnStyles) string {
+func (g row) getCol(c *acorntypes.ColumnParams) string {
 	widthColumns := acornstyles.GetWidthColumns()
-	width := widthColumns.Full
-	if styles.Width != nil {
-		width = styles.Width
-	}
 	aligns := acornstyles.GetAligns()
+	width := widthColumns.Full
 	align := aligns.Left
-	if styles.Align != nil {
-		align = styles.Align
+
+	if c.Styles != nil {
+		if c.Styles.Width != nil {
+			width = c.Styles.Width
+		}
+		if c.Styles.Align != nil {
+			align = c.Styles.Align
+		}
 	}
+
 	return fmt.Sprintf(
 		`<td class="col" align="%s" width="%s">%s</td>`,
-		align.String(), width.String(), body,
+		align.String(), width.String(), c.Content,
 	)
 }
 
@@ -38,7 +42,7 @@ func (g row) getRow() string {
 	var columns []string
 	if len(g.Params) > 0 {
 		for _, column := range g.Params {
-			col := g.getCol(column.Content, column.Styles)
+			col := g.getCol(column)
 			columns = append(columns, col)
 		}
 	}

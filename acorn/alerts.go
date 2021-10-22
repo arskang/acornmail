@@ -18,7 +18,7 @@ func (a alert) getAlertBG(color, txtColor acorntypes.Color) string {
 	return `
 	<table cellpadding="0" cellspacing="0" role="presentation" width="100%">
 		<tr>
-			<td bgcolor="` + color.String() + `;" style="color: ` + txtColor.String() + `; padding: 16px 32px;">
+			<td bgcolor="` + color.String() + `" style="color: ` + txtColor.String() + `; padding: 16px 32px;">
 				` + a.Params.Content + `
 			</td>
 		</tr>

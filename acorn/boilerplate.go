@@ -143,7 +143,9 @@ func (h HTML) GetBoilerPlate(elements ...string) string {
 					<table class="container" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" role="presentation" width="600">
 						<tr>
 							<td align="left">
+								<div class="spacer py-sm-16" style="line-height: 32px;">&zwnj;</div>
 								` + strings.Join(elements, " ") + `
+								<div class="spacer py-sm-16" style="line-height: 32px;">&zwnj;</div>
 							</td>
 						</tr>
 					</table>
