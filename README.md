@@ -6,7 +6,8 @@
 + [Ejemplo](#ejemplo)
 + [Métodos](#métodos)
 + [Componentes](#componentes)
-+ [Utilidades](#utilidades)
++ [Tipos](#tipos)
++ [Estilos](#estilos)
 
 #### Librerías
 Proyecto original:
@@ -152,7 +153,36 @@ buttonPhill := acorn.NewButton(&acorntypes.ButtonParams{
 fmt.Println(buttonPhill)
 ```
 
-#### Utilidades
+#### Tipos
+
+- *Importación*
+```go
+import "github.com/arskang/gomail-acorn-template/acorntypes"
+```
+
+- *Básicos*
+
+    - Align ```acorntypes.Align```
+    - Color ```acorntypes.Color```
+    - WidthColumn ```acorntypes.WidthColumn```
+    - Types ```acorntypes.Types```
+    - AcornVariables ```acorntypes.AcornVariables```
+
+- *Compuestos*
+
+    - ColParams ```acorntypes.ColParams```
+    - ButtonParams ```acorntypes.ButtonParams```
+    - AlertParams ```acorntypes.AlertParams```
+    - ColumnStyles ```acorntypes.ColumnStyles```
+    - ButtonStyles ```acorntypes.ButtonStyles```
+    - AlertStyles ```acorntypes.AlertStyles```
+
+#### Estilos
+
+- *Importación*
+```go
+import "github.com/arskang/gomail-acorn-template/acornstyles"
+```
 
 - *Tipo de botones*
 
@@ -176,7 +206,7 @@ fmt.Println(aligns.Left)
 
 ```go
 widthColumn := acornstyles.GetWidthColumns()
-fmt.Println(widthColumn.Full) // %100
+fmt.Println(widthColumn.Full) // 100%
 fmt.Println(widthColumn.Quarter) // 1/4
 fmt.Println(widthColumn.Medium) // 1/2
 fmt.Println(widthColumn.ThreeQuarters) // 3/4
@@ -189,11 +219,9 @@ fmt.Println(widthColumn.TwoThird) // 2/3
 
 - *Colores*
 
-Material palette
-
 ```go
 acornColor := acornstyles.GetColors()
-red50 := acornColor.Red._50
+red50 := acornColor.Red.M50
 fmt.Println(red50)
 
 // Only hexadecimal string

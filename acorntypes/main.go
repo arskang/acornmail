@@ -42,12 +42,6 @@ type AlertParams struct {
 	Styles  *AlertStyles
 }
 
-type Styles struct {
-	Align       *Align
-	Color       *Color
-	WidthColumn *WidthColumn
-}
-
 type ColumnStyles struct {
 	Align *Align
 	Width *WidthColumn
