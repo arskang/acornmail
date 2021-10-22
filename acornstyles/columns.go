@@ -3,7 +3,7 @@ package acornstyles
 import "github.com/arskang/gomail-acorn-template/acorntypes"
 
 type widthColumns struct {
-	Full, Quarter, Medium, ThreeQuarters, OneThird, TwiThird *acorntypes.WidthColumn
+	Full, Quarter, Medium, ThreeQuarters, OneThird, TwoThird *acorntypes.WidthColumn
 }
 
 func setColumn(s string) *acorntypes.WidthColumn {
@@ -17,6 +17,6 @@ func GetWidthColumns() *widthColumns {
 		Medium:        setColumn("276"),
 		ThreeQuarters: setColumn("414"),
 		OneThird:      setColumn("184"),
-		TwiThird:      setColumn("368"),
+		TwoThird:      setColumn("368"),
 	}
 }

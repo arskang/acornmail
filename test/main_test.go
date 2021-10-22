@@ -9,13 +9,12 @@ import (
 	"github.com/arskang/gomail-acorn-template/acorntypes"
 )
 
-func TestGetHTMLString(t *testing.T) {
+func TestMergeVariables(t *testing.T) {
 
-	// GetHTMLString
-	html, err := acornmail.GetHTMLString(
+	// MergeVariables
+	html, err := acornmail.MergeVariables(
 		"<div>{{.Title}}</div>",
-		"Ejemplo",
-		map[string]interface{}{
+		acorntypes.AcornVariables{
 			"Title": "Hola mundo",
 		},
 	)
@@ -30,8 +29,13 @@ func TestExample(t *testing.T) {
 	// Componentes
 	acorn := acornmail.NewAcornEmailComponents()
 
-	// NewRow
+	// Utilidades
 	wColumns := acornstyles.GetWidthColumns()
+	colors := acornstyles.GetColors()
+	types := acornstyles.GetTypes()
+	aligns := acornstyles.GetAligns()
+
+	// NewRow
 	row := acorn.NewRow([]*acorntypes.ColParams{
 		{
 			Content: "1/4 de columna",
@@ -53,10 +57,48 @@ func TestExample(t *testing.T) {
 		},
 	})
 
+	alert := acorn.NewAlert(&acorntypes.AlertParams{
+		Content: "Esta es una alerta",
+		Styles: &acorntypes.AlertStyles{
+			Outlined:  true,
+			TextColor: colors.Pink.M300,
+		},
+	})
+
+	buttonFilled := acorn.NewButton(&acorntypes.ButtonParams{
+		Text: "Filled button",
+		Link: "http://docs.thememountain.com/acorn/",
+		Styles: &acorntypes.ButtonStyles{
+			FullWidth: true,
+		},
+	})
+
+	buttonOutlined := acorn.NewButton(&acorntypes.ButtonParams{
+		Text: "Outlined button",
+		Link: "http://docs.thememountain.com/acorn/",
+		Styles: &acorntypes.ButtonStyles{
+			Type: types.Outlined,
+		},
+	})
+
+	buttonPhill := acorn.NewButton(&acorntypes.ButtonParams{
+		Text: "Pill button",
+		Link: "http://docs.thememountain.com/acorn/",
+		Styles: &acorntypes.ButtonStyles{
+			Type:  types.Pill,
+			Align: aligns.Center,
+		},
+	})
+
+	fmt.Println(buttonPhill)
+
 	boilertemplate := acorn.GetBoilerPlate(
 		row,
+		alert,
+		buttonFilled,
+		buttonOutlined,
 	)
 
-	fmt.Println(boilertemplate)
+	// fmt.Println(boilertemplate)
 	t.Log(boilertemplate)
 }

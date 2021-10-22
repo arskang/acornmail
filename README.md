@@ -6,12 +6,14 @@
 + [Ejemplo](#ejemplo)
 + [Métodos](#métodos)
 + [Componentes](#componentes)
-+ [Types](#types)
 + [Utilidades](#utilidades)
 
 #### Librerías
 Proyecto original:
 - [Acorn Email Framework](http://docs.thememountain.com/acorn/)
+
+Colores:
+- [Material design](https://material.io/resources/color/#!/?view.left=0&view.right=0)
 
 #### Instalación
 ```
@@ -25,19 +27,30 @@ import acornmail "github.com/arskang/gomail-acorn-template"
 
 #### Ejemplo
 ```go
-// En proceso...
+import acornmail "github.com/arskang/gomail-acorn-template"
+
+func main() {
+
+    acorn := acornmail.NewAcornEmailComponents()
+
+}
+
 ```
 
 #### Métodos
 
-- *GetHTMLString*: Obtener un html con parámetros dinámicos
+- *MergeVariables*: Fusionar a un HTML variables
 ```go
-html, err := acornmail.GetHTMLString("<div>{{.Title}}</div>", map[string]interface{}{
-    "Title": "Hola mundo",
-})
+html, err := acornmail.MergeVariables(
+    "<div>{{.Title}}</div>",
+    acorntypes.AcornVariables{
+        "Title": "Hola mundo",
+    },
+)
 if err != nil {
     panic(err)
 }
+
 fmt.Println(html)
 ```
 
@@ -54,86 +67,110 @@ boilertemplate := acorn.GetBoilerPlate(
     "Header",
     "Body",
     "Footer",
-    // componentes...
+    // n componentes...
 )
 fmt.Println(boilertemplate)
 ```
 
 - **Row**
 ```go
-import "github.com/arskang/gomail-acorn-template/acornstyles"
+wColumns := acornstyles.GetWidthColumns()
 
-func main() {
-    wColumns := acornstyles.GetWidthColumns()
-    row := acorn.NewRow([]*acorntypes.ColParams{
-        {
-            Content: "1/4 de columna",
-            Styles: &acorntypes.Styles{
-                WidthColumn: wColumns.Quarter,
-            },
+row := acorn.NewRow([]*acorntypes.ColParams{
+    {
+        Content: "1/4 de columna",
+        Styles: &acorntypes.Styles{
+            WidthColumn: wColumns.Quarter,
         },
-        {
-            Content: "1/2 de columna",
-            Styles: &acorntypes.Styles{
-                WidthColumn: wColumns.Medium,
-            },
+    },
+    {
+        Content: "1/2 de columna",
+        Styles: &acorntypes.Styles{
+            WidthColumn: wColumns.Medium,
         },
-        {
-            Content: "1/4 de columna",
-            Styles: &acorntypes.Styles{
-                WidthColumn: wColumns.Quarter,
-            },
+    },
+    {
+        Content: "1/4 de columna",
+        Styles: &acorntypes.Styles{
+            WidthColumn: wColumns.Quarter,
         },
-    })
-    fmt.Println(row)
-}
+    },
+})
+
+fmt.Println(row)
 ```
 
 - **Alerts**
 ```go
-content := "Aceptar"
-hexColor := "#008f38"
-outlined := nil // *bool
-alert := acorn.NewAlert(content, hexColor, outlined)
+colors := acornstyles.GetColors()
+
+alert := acorn.NewAlert(&acorntypes.AlertParams{
+    Content: "Esta es una alerta",
+    Styles: &acorntypes.AlertStyles{
+        Outlined:  true,
+        TextColor: colors.Pink.M300,
+    },
+})
+
 fmt.Println(alert)
 ```
 
 - **Buttons**
 ```go
-button := acorn.NewButton(&acorntypes.ButtonParams {
-    Text: "Aceptar",
-    Link: "https://google.com",
-    HexColor: "#008f38",
-    // Align,
-}, nil)
-fmt.Println(button)
-```
+types := acornstyles.GetTypes()
+aligns := acornstyles.GetAligns()
 
-#### Types
-```go
-import "github.com/arskang/gomail-acorn-template/acorntypes"
-```
+buttonFilled := acorn.NewButton(&acorntypes.ButtonParams{
+    Text: "Filled button",
+    Link: "http://docs.thememountain.com/acorn/",
+    Styles: &acorntypes.ButtonStyles{
+        FullWidth: true,
+    },
+})
 
-- *Col*
-```go
-w := "1/4"
-colParams := acorntypes.ColParams {
-    Content: "Content", // string
-    Width: &w, // *string
-}
-```
+fmt.Println(buttonFilled)
 
-- *Button*
-```go
-buttonParams := acorntypes.ButtonParams {
-    Text: "Aceptar",
-    Link: "https://google.com",
-    HexColor: "#008f38",
-    // Align,
-}
+buttonOutlined := acorn.NewButton(&acorntypes.ButtonParams{
+    Text: "Outlined button",
+    Link: "http://docs.thememountain.com/acorn/",
+    Styles: &acorntypes.ButtonStyles{
+        Type: types.Outlined,
+    },
+})
+
+fmt.Println(buttonOutlined)
+
+buttonPhill := acorn.NewButton(&acorntypes.ButtonParams{
+    Text: "Pill button",
+    Link: "http://docs.thememountain.com/acorn/",
+    Styles: &acorntypes.ButtonStyles{
+        Type:  types.Pill,
+        Align: aligns.Center,
+    },
+})
+
+fmt.Println(buttonPhill)
 ```
 
 #### Utilidades
+
+- *Tipo de botones*
+
+```go
+types := acornstyles.GetTypes()
+fmt.Println(types.Filled)
+fmt.Println(types.Outlined)
+fmt.Println(types.Pill)
+```
+
+- *Alineaciones*
+
+```go
+aligns := acornstyles.GetAligns()
+fmt.Println(aligns.Center)
+fmt.Println(aligns.Right)
+fmt.Println(aligns.Left)
+```
 
 - *Ancho de columnas*
 
@@ -144,7 +181,7 @@ fmt.Println(widthColumn.Quarter) // 1/4
 fmt.Println(widthColumn.Medium) // 1/2
 fmt.Println(widthColumn.ThreeQuarters) // 3/4
 fmt.Println(widthColumn.OneThird) // 1/3
-fmt.Println(widthColumn.TwiThird) // 2/3
+fmt.Println(widthColumn.TwoThird) // 2/3
 ```
 
 ![Grid three](./assets/grid-three.png)
@@ -167,6 +204,6 @@ if err != nil {
 fmt.Println(customColor)
 ```
 
-![Material color 01](./assets/material-color-01.png)
-![Material color 02](./assets/material-color-02.png)
-![Material color 03](./assets/material-color-03.png)
+![Material color 01](./assets/material-color-01.jpeg)
+![Material color 02](./assets/material-color-02.jpeg)
+![Material color 03](./assets/material-color-03.jpeg)

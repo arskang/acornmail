@@ -4,37 +4,40 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/arskang/gomail-acorn-template/acornstyles"
 	"github.com/arskang/gomail-acorn-template/acorntypes"
 )
 
 type row struct {
-	Columns []*acorntypes.ColParams
+	Params []*acorntypes.ColParams
 }
 
-func (h HTML) NewRow(columns []*acorntypes.ColParams) string {
-	row := &row{Columns: columns}
+func (h HTML) NewRow(params []*acorntypes.ColParams) string {
+	row := &row{Params: params}
 	return row.getRow()
 }
 
 func (g row) getCol(body string, styles *acorntypes.ColumnStyles) string {
-	width := "100%"
+	widthColumns := acornstyles.GetWidthColumns()
+	width := widthColumns.Full
 	if styles.Width != nil {
-		width = string(*styles.Width)
+		width = styles.Width
 	}
-	align := "left"
+	aligns := acornstyles.GetAligns()
+	align := aligns.Left
 	if styles.Align != nil {
-		width = string(*styles.Align)
+		align = styles.Align
 	}
 	return fmt.Sprintf(
-		`<td class="col" align:"%s" width="%s">%s</td>`,
-		align, width, body,
+		`<td class="col" align="%s" width="%s">%s</td>`,
+		align.String(), width.String(), body,
 	)
 }
 
 func (g row) getRow() string {
 	var columns []string
-	if len(g.Columns) > 0 {
-		for _, column := range g.Columns {
+	if len(g.Params) > 0 {
+		for _, column := range g.Params {
 			col := g.getCol(column.Content, column.Styles)
 			columns = append(columns, col)
 		}

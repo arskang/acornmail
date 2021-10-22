@@ -6,21 +6,22 @@ import (
 	"html/template"
 
 	"github.com/arskang/gomail-acorn-template/acorn"
+	"github.com/arskang/gomail-acorn-template/acorntypes"
 )
 
 func NewAcornEmailComponents() *acorn.HTML {
 	return &acorn.HTML{}
 }
 
-func GetHTMLString(temp, name string, params map[string]interface{}) (string, error) {
-	t, err := template.New(name).Parse(temp)
+func MergeVariables(temp string, variables acorntypes.AcornVariables) (string, error) {
+	t, err := template.New("acorn-template").Parse(temp)
 	if err != nil {
 		return "", err
 	}
 
 	var tpl bytes.Buffer
 
-	err = t.Execute(&tpl, params)
+	err = t.Execute(&tpl, variables)
 	if err != nil {
 		return "", err
 	}

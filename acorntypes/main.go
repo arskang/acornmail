@@ -2,9 +2,29 @@ package acorntypes
 
 type Align string
 
+func (a Align) String() string {
+	return string(a)
+}
+
 type Color string
 
+func (c Color) String() string {
+	return string(c)
+}
+
 type WidthColumn string
+
+func (wc WidthColumn) String() string {
+	return string(wc)
+}
+
+type Types string
+
+func (t Types) String() string {
+	return string(t)
+}
+
+type AcornVariables map[string]string
 
 type ColParams struct {
 	Content string
@@ -12,7 +32,14 @@ type ColParams struct {
 }
 
 type ButtonParams struct {
-	Text, Link, HexColor, Align string
+	Text   string
+	Link   string
+	Styles *ButtonStyles
+}
+
+type AlertParams struct {
+	Content string
+	Styles  *AlertStyles
 }
 
 type Styles struct {
@@ -27,10 +54,15 @@ type ColumnStyles struct {
 }
 
 type ButtonStyles struct {
-	Align *Align
-	Color *Color
+	FullWidth bool
+	Align     *Align
+	Color     *Color
+	TextColor *Color
+	Type      *Types
 }
 
-func String(s string) *string {
-	return &s
+type AlertStyles struct {
+	Outlined  bool
+	Color     *Color
+	TextColor *Color
 }
