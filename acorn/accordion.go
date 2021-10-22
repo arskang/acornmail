@@ -16,7 +16,8 @@ func (h HTML) NewAccordion(params []*acorntypes.AccordionParams) string {
 	return a.getAccordion()
 }
 
-func (a accordion) getElement(p *acorntypes.AccordionParams) string {
+func (a accordion) getElement(p *acorntypes.AccordionParams, withoutSpacer bool) string {
+
 	acornColors := acornstyles.GetColors()
 
 	color := acornColors.Grey.M400
@@ -33,6 +34,11 @@ func (a accordion) getElement(p *acorntypes.AccordionParams) string {
 		if p.Styles.ContentColor != nil && acornstyles.IsHexColor(string(*p.Styles.ContentColor)) {
 			contentColor = p.Styles.ContentColor
 		}
+	}
+
+	spacer := `<div class="spacer py-sm-16" style="line-height: 32px;">&zwnj;</div>`
+	if withoutSpacer {
+		spacer = ""
 	}
 
 	return `
@@ -56,15 +62,14 @@ func (a accordion) getElement(p *acorntypes.AccordionParams) string {
 			</table>
 		</div>
 	</div>
-	<div class="spacer py-sm-16" style="line-height: 32px;">&zwnj;</div>
-	`
+	` + spacer
 }
 
 func (a accordion) getAccordion() string {
 	var elements []string
 	if len(a.Params) > 0 {
-		for _, p := range a.Params {
-			element := a.getElement(p)
+		for i, p := range a.Params {
+			element := a.getElement(p, i == len(a.Params)-1)
 			elements = append(elements, element)
 		}
 	}

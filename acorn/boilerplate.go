@@ -1,8 +1,16 @@
 package acorn
 
-import "strings"
+import (
+	"strings"
 
-func (h HTML) GetBoilerPlate(elements ...string) string {
+	"github.com/arskang/gomail-acorn-template/acorntypes"
+)
+
+func (h HTML) GetBoilerplate(elements acorntypes.AcornComponents, withoutMargins *bool) string {
+	spacer := h.NewSpacer()
+	if withoutMargins != nil && *withoutMargins {
+		spacer = ""
+	}
 	return `
 	<!DOCTYPE html>
 	<html lang="es" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -143,9 +151,7 @@ func (h HTML) GetBoilerPlate(elements ...string) string {
 					<table class="container" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" role="presentation" width="600">
 						<tr>
 							<td align="left">
-								<div class="spacer py-sm-16" style="line-height: 32px;">&zwnj;</div>
-								` + strings.Join(elements, " ") + `
-								<div class="spacer py-sm-16" style="line-height: 32px;">&zwnj;</div>
+								` + spacer + strings.Join(elements, " ") + spacer + `
 							</td>
 						</tr>
 					</table>

@@ -24,6 +24,8 @@ func (t Types) String() string {
 	return string(t)
 }
 
+type AcornComponents []string
+
 type AcornVariables map[string]string
 
 type ColumnParams struct {
@@ -48,9 +50,22 @@ type AccordionParams struct {
 	Styles  *AccordionStyles
 }
 
+type LabelParams struct {
+	Text   string
+	Styles *LabelStyles
+}
+
+type ContentParams struct {
+	Content string
+	Image   string
+	Color   *Color
+}
+
 type ColumnStyles struct {
-	Align *Align
-	Width *WidthColumn
+	Align     *Align
+	Width     *WidthColumn
+	Color     *Color
+	TextColor *Color
 }
 
 type ButtonStyles struct {
@@ -71,4 +86,10 @@ type AccordionStyles struct {
 	Color        *Color
 	TitleColor   *Color
 	ContentColor *Color
+}
+
+type LabelStyles struct {
+	Type      *Types
+	Color     *Color
+	TextColor *Color
 }

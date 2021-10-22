@@ -62,16 +62,51 @@ acorn := acornmail.NewAcornEmailComponents()
 
 ##### Componentes
 
-- **GetBoilerPlate**
+- **GetBoilerplate**
 ```go
-boilertemplate := acorn.GetBoilerPlate(
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
     "Header",
     "Body",
     "Footer",
     // n componentes...
-)
+}, nil)
 fmt.Println(boilertemplate)
 ```
+
+- **Spacer**
+```go
+spacer := acorn.NewSpacer()
+fmt.Println(spacer)
+```
+
+- **Divider**
+```go
+divider := acorn.NewDivider()
+fmt.Println(divider)
+```
+
+- **Label**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+types := acornstyles.GetTypes()
+
+labelFilled := acorn.NewLabel(&acorntypes.LabelParams{
+    Text: "filled label",
+})
+
+labelOutlined := acorn.NewLabel(&acorntypes.LabelParams{
+    Text: "outlined label",
+    Styles: &acorntypes.LabelStyles{
+        Type: types.Outlined,
+    },
+})
+
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
+
+fmt.Println(labelFilled, labelOutlined)
+```
+![Label](./assets/components-label.png)
 
 - **Grid**
 ```go
@@ -90,6 +125,8 @@ row := acorn.NewRow([]*acorntypes.ColumnParams{
         Content: "1/2 de columna",
         Styles: &acorntypes.Styles{
             WidthColumn: widthColumns.Medium,
+            Color:     colors.Purple.M700,
+            TextColor: colors.White,
         },
     },
     {
@@ -100,11 +137,30 @@ row := acorn.NewRow([]*acorntypes.ColumnParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerPlate(row)
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
 
 fmt.Println(boilertemplate)
 ```
 ![Grid](./assets/components-grid.png)
+
+- *Content*
+```go
+content := acorn.NewContent(&acorntypes.ContentParams{
+    Content: row,
+    Image:   "https://picsum.photos/1200/800?image=837",
+})
+
+// Without image
+// content := acorn.NewContent(&acorntypes.ContentParams{
+//     Content: row,
+// })
+
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, nil)
+
+fmt.Println(boilertemplate)
+```
+![Content](./assets/components-content.png)
+![Content](./assets/components-content-withoutimage.png)
 
 - **Alerts**
 ```go
@@ -123,11 +179,11 @@ alertOutlined := acorn.NewAlert(&acorntypes.AlertParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerPlate(
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
     alert,
     divider,
     alertOutlined,
-)
+}, nil)
 
 fmt.Println(boilertemplate)
 ```
@@ -192,11 +248,11 @@ rowTwo := acorn.NewRow([]*acorntypes.ColumnParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerPlate(
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
     rowOne,
     divider,
     rowTwo,
-)
+}, nil)
 
 fmt.Println(boilertemplate)
 ```
@@ -224,7 +280,7 @@ accordion := acorn.NewAccordion([]*acorntypes.AccordionParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerPlate(accordion)
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{accordion}, nil)
 
 fmt.Println(boilertemplate)
 ```
@@ -243,6 +299,7 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
     - Color ```acorntypes.Color```
     - WidthColumn ```acorntypes.WidthColumn```
     - Types ```acorntypes.Types```
+    - AcornComponents ```acorntypes.AcornComponents```
     - AcornVariables ```acorntypes.AcornVariables```
 
 - *Compuestos*
@@ -255,6 +312,9 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
     - AlertStyles ```acorntypes.AlertStyles```
     - AccordionParams ```acorntypes.AccordionParams```
     - AccordionStyles ```acorntypes.AccordionStyles```
+    - LabelParams ```acorntypes.LabelParams```
+    - LabelStyles ```acorntypes.LabelStyles```
+    - ContentParams ```acorntypes.ContentParams```
 
 #### Estilos
 

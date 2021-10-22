@@ -46,7 +46,9 @@ func TestExample(t *testing.T) {
 		{
 			Content: "1/2 de columna",
 			Styles: &acorntypes.ColumnStyles{
-				Width: widthColumns.Medium,
+				Width:     widthColumns.Medium,
+				Color:     colors.Purple.M700,
+				TextColor: colors.White,
 			},
 		},
 		{
@@ -116,11 +118,32 @@ func TestExample(t *testing.T) {
 	spacer := acorn.NewSpacer()
 
 	// NewDivider
-	divider := acorn.NewDivider(nil)
+	divider := acorn.NewDivider(colors.DeepPurple.M700)
 
-	fmt.Println(alert, divider, alertOutlined)
+	// Label
+	labelFilled := acorn.NewLabel(&acorntypes.LabelParams{
+		Text: "filled label",
+	})
 
-	boilertemplate := acorn.GetBoilerPlate(
+	labelOutlined := acorn.NewLabel(&acorntypes.LabelParams{
+		Text: "outlined label",
+		Styles: &acorntypes.LabelStyles{
+			Type: types.Outlined,
+		},
+	})
+
+	// Content
+	content := acorn.NewContent(&acorntypes.ContentParams{
+		Content: row,
+		Image:   "",
+	})
+
+	// withoutMargins := true
+	// b := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, &withoutMargins)
+
+	fmt.Println(accordion)
+
+	boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 		row,
 		alert,
 		buttonFilled,
@@ -130,7 +153,10 @@ func TestExample(t *testing.T) {
 		spacer,
 		divider,
 		alertOutlined,
-	)
+		labelFilled,
+		labelOutlined,
+		content,
+	}, nil)
 
 	t.Log(boilertemplate)
 }

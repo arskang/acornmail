@@ -19,7 +19,7 @@ func (h HTML) NewDivider(color *acorntypes.Color) string {
 	<table cellpadding="0" cellspacing="0" role="presentation" width="100%">
 		<tr>
 			<td class="divider py-sm-24" style="padding: 16px;">
-				<div style="background: ` + c.String() + `; height: 1px; line-height: 1px;" />
+				<div style="background: ` + c.String() + `; height: 2px; line-height: 2px;" />
 			</td>
 		</tr>
 	</table>

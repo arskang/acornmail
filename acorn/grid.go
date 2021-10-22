@@ -20,8 +20,12 @@ func (h HTML) NewRow(params []*acorntypes.ColumnParams) string {
 func (g row) getCol(c *acorntypes.ColumnParams) string {
 	widthColumns := acornstyles.GetWidthColumns()
 	aligns := acornstyles.GetAligns()
+	colors := acornstyles.GetColors()
 	width := widthColumns.Full
 	align := aligns.Left
+	txtColor := colors.Black
+
+	var color string
 
 	if c.Styles != nil {
 		if c.Styles.Width != nil {
@@ -30,10 +34,16 @@ func (g row) getCol(c *acorntypes.ColumnParams) string {
 		if c.Styles.Align != nil {
 			align = c.Styles.Align
 		}
+		if c.Styles.Color != nil {
+			color = `bgcolor="` + c.Styles.Color.String() + `"`
+		}
+		if c.Styles.TextColor != nil {
+			txtColor = c.Styles.TextColor
+		}
 	}
 
 	return fmt.Sprintf(
-		`<td class="col" align="%s" width="%s">%s</td>`,
+		`<td class="col" align="%s" width="%s" `+color+` style="color: `+txtColor.String()+`; padding: 8px;">%s</td>`,
 		align.String(), width.String(), c.Content,
 	)
 }
