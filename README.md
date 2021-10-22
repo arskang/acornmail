@@ -145,6 +145,7 @@ fmt.Println(boilertemplate)
 
 - *Content*
 ```go
+
 content := acorn.NewContent(&acorntypes.ContentParams{
     Content: row,
     Image:   "https://picsum.photos/1200/800?image=837",
@@ -155,7 +156,8 @@ content := acorn.NewContent(&acorntypes.ContentParams{
 //     Content: row,
 // })
 
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, nil)
+withoutMargins := true
+boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, &withoutMargins)
 
 fmt.Println(boilertemplate)
 ```
