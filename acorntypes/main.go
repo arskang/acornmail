@@ -61,6 +61,10 @@ type ContentParams struct {
 	Color   *Color
 }
 
+type TimelineParams struct {
+	Time, Title, Content string
+}
+
 type ColumnStyles struct {
 	Align     *Align
 	Width     *WidthColumn

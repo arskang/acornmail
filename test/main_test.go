@@ -141,7 +141,25 @@ func TestExample(t *testing.T) {
 	// withoutMargins := true
 	// b := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, &withoutMargins)
 
-	fmt.Println(accordion)
+	timeline := acorn.NewTimeline([]*acorntypes.TimelineParams{
+		{
+			Time:    "2007 - 20082007 - 2008",
+			Title:   "Massachusetts Institute of TechnologyMassachusetts Institute of TechnologyMassachusetts Institute of Technology",
+			Content: "Co-wrote a book on the Semantic Web and Best Practices for Developers.Co-wrote a book on the Semantic Web and Best Practices for Developers.Co-wrote a book on the Semantic Web and Best Practices for Developers.",
+		},
+		{
+			Time:    "2007 - 20082007 - 2008",
+			Title:   "Massachusetts Institute of TechnologyMassachusetts Institute of TechnologyMassachusetts Institute of Technology",
+			Content: "Co-wrote a book on the Semantic Web and Best Practices for Developers.Co-wrote a book on the Semantic Web and Best Practices for Developers.Co-wrote a book on the Semantic Web and Best Practices for Developers.",
+		},
+		{
+			Time:    "2007 - 20082007 - 2008",
+			Title:   "Massachusetts Institute of TechnologyMassachusetts Institute of TechnologyMassachusetts Institute of Technology",
+			Content: "Co-wrote a book on the Semantic Web and Best Practices for Developers.Co-wrote a book on the Semantic Web and Best Practices for Developers.Co-wrote a book on the Semantic Web and Best Practices for Developers.",
+		},
+	})
+
+	fmt.Println(timeline)
 
 	boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 		row,
@@ -156,6 +174,7 @@ func TestExample(t *testing.T) {
 		labelFilled,
 		labelOutlined,
 		content,
+		timeline,
 	}, nil)
 
 	t.Log(boilertemplate)

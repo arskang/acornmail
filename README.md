@@ -64,13 +64,13 @@ acorn := acornmail.NewAcornEmailComponents()
 
 - **GetBoilerplate**
 ```go
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
     "Header",
     "Body",
     "Footer",
     // n componentes...
 }, nil)
-fmt.Println(boilertemplate)
+fmt.Println(boilerplate)
 ```
 
 - **Spacer**
@@ -102,9 +102,12 @@ labelOutlined := acorn.NewLabel(&acorntypes.LabelParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    labelFilled,
+    labelOutlined,
+}, nil)
 
-fmt.Println(labelFilled, labelOutlined)
+fmt.Println(boilerplate)
 ```
 ![Label](./assets/components-label.png)
 
@@ -137,9 +140,9 @@ row := acorn.NewRow([]*acorntypes.ColumnParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
 
-fmt.Println(boilertemplate)
+fmt.Println(boilerplate)
 ```
 ![Grid](./assets/components-grid.png)
 
@@ -157,9 +160,9 @@ content := acorn.NewContent(&acorntypes.ContentParams{
 // })
 
 withoutMargins := true
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, &withoutMargins)
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, &withoutMargins)
 
-fmt.Println(boilertemplate)
+fmt.Println(boilerplate)
 ```
 ![Content](./assets/components-content.png)
 ![Content](./assets/components-content-withoutimage.png)
@@ -181,13 +184,13 @@ alertOutlined := acorn.NewAlert(&acorntypes.AlertParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
     alert,
     divider,
     alertOutlined,
 }, nil)
 
-fmt.Println(boilertemplate)
+fmt.Println(boilerplate)
 ```
 ![Grid](./assets/components-alert.png)
 
@@ -250,13 +253,13 @@ rowTwo := acorn.NewRow([]*acorntypes.ColumnParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
     rowOne,
     divider,
     rowTwo,
 }, nil)
 
-fmt.Println(boilertemplate)
+fmt.Println(boilerplate)
 ```
 ![Buttons](./assets/components-buttons.png)
 
@@ -282,11 +285,43 @@ accordion := acorn.NewAccordion([]*acorntypes.AccordionParams{
     },
 })
 
-boilertemplate := acorn.GetBoilerplate(acorntypes.AcornComponents{accordion}, nil)
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{accordion}, nil)
 
-fmt.Println(boilertemplate)
+fmt.Println(boilerplate)
 ```
 ![Accordion](./assets/components-accordion.png)
+
+- **Timeline**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+// Time: Max 11 caracteres
+// Title: Max 37 caracteres
+// Content: Max 78 caracteres
+
+timeline := acorn.NewTimeline([]*acorntypes.TimelineParams{
+    {
+        Time:    "2007 - 2008",
+        Title:   "Massachusetts Institute of Technology",
+        Content: "Co-wrote a book on the Semantic Web and Best Practices for Developers.",
+    },
+    {
+        Time:    "2004 - 2006",
+        Title:   "Parsons School of Design",
+        Content: "Awarded Best Designer of the Year voted by student and teacher body.",
+    },
+    {
+        Time:    "2002 - 2004",
+        Title:   "Berkley College",
+        Content: "Two year program with a focus on design principles and Javascript development.",
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{timeline}, nil)
+
+fmt.Println(boilerplate)
+```
+![Accordion](./assets/components-timeline.png)
 
 #### Tipos
 
@@ -317,6 +352,7 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
     - LabelParams ```acorntypes.LabelParams```
     - LabelStyles ```acorntypes.LabelStyles```
     - ContentParams ```acorntypes.ContentParams```
+    - TimelineParams ```acorntypes.TimelineParams```
 
 #### Estilos
 

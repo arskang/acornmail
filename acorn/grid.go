@@ -43,7 +43,7 @@ func (g row) getCol(c *acorntypes.ColumnParams) string {
 	}
 
 	return fmt.Sprintf(
-		`<td class="col" align="%s" width="%s" `+color+` style="color: `+txtColor.String()+`; padding: 8px;">%s</td>`,
+		`<td class="col" align="%s" width="%s" `+color+` style="color: `+txtColor.String()+`; padding: 8px; margin-left: 4px; margin-right: 4px;">%s</td>`,
 		align.String(), width.String(), c.Content,
 	)
 }
