@@ -20,3 +20,8 @@ func GetWidthColumns() *widthColumns {
 		TwoThird:      setColumn("368"),
 	}
 }
+
+func WithoutMargins() *bool {
+	withoutMargins := true
+	return &withoutMargins
+}

@@ -180,13 +180,117 @@ func TestExample(t *testing.T) {
 	t.Log(boilertemplate)
 }
 
-func TestBasicExample(t *testing.T) {
+func TestGrid(t *testing.T) {
 
-	// acorn := acornmail.NewAcornEmailComponents()
+	acorn := acornmail.NewAcornEmailComponents()
 
-	// widthColumns := acornstyles.GetWidthColumns()
-	// colors := acornstyles.GetColors()
-	// types := acornstyles.GetTypes()
-	// aligns := acornstyles.GetAligns()
+	widthColumns := acornstyles.GetWidthColumns()
+	colors := acornstyles.GetColors()
 
+	grid := acorn.NewGrid([][]*acorntypes.ColumnParams{
+		{
+			{
+				Content: "100%",
+				Styles: &acorntypes.ColumnStyles{
+					Width:     widthColumns.Full,
+					Color:     colors.Purple.M700,
+					TextColor: colors.White,
+				},
+			},
+		},
+		nil, // Add spacer
+		{
+			{
+				Content: "1/2 de columna",
+				Styles: &acorntypes.ColumnStyles{
+					Width: widthColumns.Medium,
+				},
+			},
+			{
+				Content: "1/2 de columna",
+				Styles: &acorntypes.ColumnStyles{
+					Width: widthColumns.Medium,
+				},
+			},
+		},
+	})
+
+	fmt.Println(grid)
+
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
+
+	t.Log(boilerplate)
+
+}
+
+func TestTestimonial(t *testing.T) {
+
+	acorn := acornmail.NewAcornEmailComponents()
+
+	aligns := acornstyles.GetAligns()
+	colors := acornstyles.GetColors()
+
+	testimonialBorder := acorn.NewTestimonial(&acorntypes.TestimonialParams{
+		Testimonial: "Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.",
+		Author:      "Steve Jobs",
+		Styles: &acorntypes.TestimonialStyles{
+			BorderColor: colors.Orange.M500,
+		},
+	})
+
+	testimonialIcon := acorn.NewTestimonial(&acorntypes.TestimonialParams{
+		Testimonial: "Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.",
+		Author:      "Steve Jobs",
+		Icon:        true,
+	})
+
+	testimonialImage := acorn.NewTestimonial(&acorntypes.TestimonialParams{
+		Testimonial: "Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.",
+		Author:      "Steve Jobs",
+		Styles: &acorntypes.TestimonialStyles{
+			Image: "https://gravatar.com/avatar/5ad269974f4c69c9ff6eca2ad2d1d0b8?s=400&d=robohash&r=x",
+			Align: aligns.Center,
+		},
+	})
+
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+		testimonialBorder,
+		testimonialIcon,
+		testimonialImage,
+	}, nil)
+
+	fmt.Println(
+		testimonialBorder,
+		testimonialIcon,
+		testimonialImage,
+	)
+
+	t.Log(boilerplate)
+
+}
+
+func TestSpacer(t *testing.T) {
+	acorn := acornmail.NewAcornEmailComponents()
+
+	spacer := acorn.NewSpacer()
+
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{spacer}, acornstyles.WithoutMargins())
+
+	fmt.Println(spacer)
+
+	t.Log(boilerplate)
+}
+
+func TestDivider(t *testing.T) {
+	acorn := acornmail.NewAcornEmailComponents()
+
+	colors := acornstyles.GetColors()
+
+	divider := acorn.NewDivider(colors.DeepPurple.M700)
+
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{divider}, acornstyles.WithoutMargins())
+
+	fmt.Println(divider)
+
+	t.Log(boilerplate)
 }

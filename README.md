@@ -75,15 +75,35 @@ fmt.Println(boilerplate)
 
 - **Spacer**
 ```go
+acorn := acornmail.NewAcornEmailComponents()
+
 spacer := acorn.NewSpacer()
-fmt.Println(spacer)
+
+boilerplate := acorn.GetBoilerplate(
+    acorntypes.AcornComponents{spacer},
+    acornstyles.WithoutMargins(),
+)
+
+fmt.Println(boilerplate)
 ```
+![Spacer](./assets/components-spacer.png)
 
 - **Divider**
 ```go
-divider := acorn.NewDivider()
-fmt.Println(divider)
+acorn := acornmail.NewAcornEmailComponents()
+
+colors := acornstyles.GetColors()
+
+divider := acorn.NewDivider(colors.DeepPurple.M700)
+
+boilerplate := acorn.GetBoilerplate(
+    acorntypes.AcornComponents{divider},
+    acornstyles.WithoutMargins(),
+)
+
+fmt.Println(boilerplate)
 ```
+![Divider](./assets/components-divider.png)
 
 - **Label**
 ```go
@@ -111,7 +131,7 @@ fmt.Println(boilerplate)
 ```
 ![Label](./assets/components-label.png)
 
-- **Grid**
+- **Row**
 ```go
 acorn := acornmail.NewAcornEmailComponents()
 
@@ -144,6 +164,48 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
 
 fmt.Println(boilerplate)
 ```
+![Row](./assets/components-row.png)
+
+- **Grid**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+widthColumns := acornstyles.GetWidthColumns()
+colors := acornstyles.GetColors()
+
+grid := acorn.NewGrid([][]*acorntypes.ColumnParams{
+    {
+        {
+            Content: "100%",
+            Styles: &acorntypes.ColumnStyles{
+                Width:     widthColumns.Full,
+                Color:     colors.Purple.M700,
+                TextColor: colors.White,
+            },
+        },
+    },
+    nil, // Add spacer
+    {
+        {
+            Content: "1/2 de columna",
+            Styles: &acorntypes.ColumnStyles{
+                Width: widthColumns.Medium,
+            },
+        },
+        {
+            Content: "1/2 de columna",
+            Styles: &acorntypes.ColumnStyles{
+                Width: widthColumns.Medium,
+            },
+        },
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
+
+fmt.Println(boilerplate)
+```
+
 ![Grid](./assets/components-grid.png)
 
 - *Content*
@@ -159,8 +221,10 @@ content := acorn.NewContent(&acorntypes.ContentParams{
 //     Content: row,
 // })
 
-withoutMargins := true
-boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{content}, &withoutMargins)
+boilerplate := acorn.GetBoilerplate(
+    acorntypes.AcornComponents{content}, 
+    acornstyles.WithoutMargins(),
+)
 
 fmt.Println(boilerplate)
 ```
@@ -192,7 +256,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 
 fmt.Println(boilerplate)
 ```
-![Grid](./assets/components-alert.png)
+![Alert](./assets/components-alert.png)
 
 - **Buttons**
 ```go
@@ -201,8 +265,6 @@ acorn := acornmail.NewAcornEmailComponents()
 widthColumns := acornstyles.GetWidthColumns()
 types := acornstyles.GetTypes()
 aligns := acornstyles.GetAligns()
-
-divider := acorn.NewDivider(nil)
 
 buttonFilled := acorn.NewButton(&acorntypes.ButtonParams{
     Text: "Filled button",
@@ -229,35 +291,33 @@ buttonPhill := acorn.NewButton(&acorntypes.ButtonParams{
     },
 })
 
-rowOne := acorn.NewRow([]*acorntypes.ColumnParams{
+grid := acorn.NewGrid([][]*acorntypes.ColumnParams{
     {
-        Content: buttonFilled,
-        Styles: &acorntypes.ColumnStyles{
-            Width: widthColumns.Full,
+        {
+            Content: buttonFilled,
+            Styles: &acorntypes.ColumnStyles{
+                Width: widthColumns.Full,
+            },
+        },
+    },
+    nil, // Add spacer
+    {
+       {
+            Content: buttonOutlined,
+            Styles: &acorntypes.ColumnStyles{
+                Width: widthColumns.Medium,
+            },
+        },
+        {
+            Content: buttonPhill,
+            Styles: &acorntypes.ColumnStyles{
+                Width: widthColumns.Medium,
+            },
         },
     },
 })
 
-rowTwo := acorn.NewRow([]*acorntypes.ColumnParams{
-    {
-        Content: buttonOutlined,
-        Styles: &acorntypes.ColumnStyles{
-            Width: widthColumns.Medium,
-        },
-    },
-    {
-        Content: buttonPhill,
-        Styles: &acorntypes.ColumnStyles{
-            Width: widthColumns.Medium,
-        },
-    },
-})
-
-boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
-    rowOne,
-    divider,
-    rowTwo,
-}, nil)
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
 
 fmt.Println(boilerplate)
 ```
@@ -295,6 +355,7 @@ fmt.Println(boilerplate)
 ```go
 acorn := acornmail.NewAcornEmailComponents()
 
+//== Limitaciones ==//
 // Time: Max 11 caracteres
 // Title: Max 37 caracteres
 // Content: Max 78 caracteres
@@ -321,7 +382,47 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{timeline}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Accordion](./assets/components-timeline.png)
+![Timeline](./assets/components-timeline.png)
+
+- **Testimonial**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+aligns := acornstyles.GetAligns()
+colors := acornstyles.GetColors()
+
+testimonialBorder := acorn.NewTestimonial(&acorntypes.TestimonialParams{
+    Testimonial: "Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.",
+    Author:      "Steve Jobs",
+    Styles: &acorntypes.TestimonialStyles{
+        BorderColor: colors.Orange.M500,
+    },
+})
+
+testimonialIcon := acorn.NewTestimonial(&acorntypes.TestimonialParams{
+    Testimonial: "Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.",
+    Author:      "Steve Jobs",
+    Icon:        true,
+})
+
+testimonialImage := acorn.NewTestimonial(&acorntypes.TestimonialParams{
+    Testimonial: "Sometimes when you innovate, you make mistakes. It is best to admit them quickly, and get on with improving your other innovations.",
+    Author:      "Steve Jobs",
+    Styles: &acorntypes.TestimonialStyles{
+        Image: "https://gravatar.com/avatar/5ad269974f4c69c9ff6eca2ad2d1d0b8?s=400&d=robohash&r=x",
+        Align: aligns.Center,
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    testimonialBorder,
+    testimonialIcon,
+    testimonialImage,
+}, nil)
+
+fmt.Println(boilerplate)
+```
+![Testimonial](./assets/components-testimonial.png)
 
 #### Tipos
 
@@ -353,6 +454,8 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
     - LabelStyles ```acorntypes.LabelStyles```
     - ContentParams ```acorntypes.ContentParams```
     - TimelineParams ```acorntypes.TimelineParams```
+    - TestimonialParams ```acorntypes.TestimonialParams```
+    - TestimonialStyles ```acorntypes.TestimonialStyles```
 
 #### Estilos
 

@@ -12,6 +12,23 @@ type row struct {
 	Params []*acorntypes.ColumnParams
 }
 
+func (h HTML) NewGrid(rows [][]*acorntypes.ColumnParams) string {
+	var grid []string
+	if len(rows) > 0 {
+		for _, row := range rows {
+			var r string
+			if row != nil {
+				r = h.NewRow(row)
+			} else {
+				r = h.NewSpacer()
+			}
+			grid = append(grid, r)
+		}
+		return strings.Join(grid, " ")
+	}
+	return ""
+}
+
 func (h HTML) NewRow(params []*acorntypes.ColumnParams) string {
 	r := &row{Params: params}
 	return r.getRow()

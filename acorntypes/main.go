@@ -65,6 +65,13 @@ type TimelineParams struct {
 	Time, Title, Content string
 }
 
+type TestimonialParams struct {
+	Testimonial string
+	Author      string
+	Icon        bool
+	Styles      *TestimonialStyles
+}
+
 type ColumnStyles struct {
 	Align     *Align
 	Width     *WidthColumn
@@ -96,4 +103,10 @@ type LabelStyles struct {
 	Type      *Types
 	Color     *Color
 	TextColor *Color
+}
+
+type TestimonialStyles struct {
+	Image       string
+	Align       *Align
+	BorderColor *Color
 }
