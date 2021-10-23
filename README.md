@@ -103,7 +103,7 @@ func main() {
 
 #### Métodos
 
-- *MergeVariables*: Fusionar a un HTML variables
+- **MergeVariables**: Fusionar a un HTML variables
 ```go
 html, err := acornmail.MergeVariables(
     "<div>{{.Title}}</div>",
@@ -118,12 +118,12 @@ if err != nil {
 fmt.Println(html)
 ```
 
-- *NewAcornEmailComponents*: Obtener el tipo **acornEmail** para poder construir un template
+- **NewAcornEmailComponents**: Obtener el tipo **acornEmail** para poder construir un template
 ```go
 acorn := acornmail.NewAcornEmailComponents()
 ```
 
-##### Componentes
+#### Componentes
 
 - **GetBoilerplate**
 ```go
