@@ -33,10 +33,73 @@ import acornmail "github.com/arskang/gomail-acorn-template"
 func main() {
 
     acorn := acornmail.NewAcornEmailComponents()
+    
+    aligns := acornstyles.GetAligns()
+    colors := acornstyles.GetColors()
+
+    variables := acorntypes.AcornVariables{
+        "Name":  "Euclides Demóstenes",
+        "Token": "Q2FwZXJ1Y2l0YSByb2ph",
+    }
+
+    image := acorn.NewImage(&acorntypes.ImageParams{
+        Image: "https://i.picsum.photos/id/859/1200/280.jpg?hmac=cFup6pjvVaf67u1WSjrP8LYF8Oty0VrMKI3sbFDz8HQ",
+        Alt:   "Logo",
+    })
+
+    button := acorn.NewButton(&acorntypes.ButtonParams{
+        Text: "Activar cuenta",
+        Link: "https://www.example.com?t={{.Token}}",
+        Styles: &acorntypes.ButtonStyles{
+            Align:     aligns.Center,
+            Color:     colors.Cyan.M700,
+            TextColor: colors.White,
+        },
+    })
+
+    grid := acorn.NewGrid([][]*acorntypes.ColumnParams{
+        {{Content: image}},
+        {
+            {
+                Content: "<h1>¡Bienvenido!</h1>",
+                Styles: &acorntypes.ColumnStyles{
+                    Align: aligns.Center,
+                },
+            },
+        },
+        {
+            {
+                Content: `
+                Hola <b>{{.Name}}</b> gracias por registrarte en nuestro sitio web, para poder activar tu cuenta da click en el siguiente enlace:
+                `,
+                Styles: &acorntypes.ColumnStyles{
+                    Align: aligns.Center,
+                },
+            },
+        },
+        nil,
+        {
+            {
+                Content: button,
+                Styles: &acorntypes.ColumnStyles{
+                    Align: aligns.Center,
+                },
+            },
+        },
+    })
+
+    boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
+
+    html, err := acornmail.MergeVariables(boilerplate, variables)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println(html)
 
 }
-
 ```
+![Ejemplo 01](./assets/example-01.png)
 
 #### Métodos
 
@@ -130,6 +193,22 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 fmt.Println(boilerplate)
 ```
 ![Label](./assets/components-label.png)
+
+- **Image**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+image := acorn.NewImage(&acorntypes.ImageParams{
+    Image: "https://i.picsum.photos/id/859/1200/280.jpg?hmac=cFup6pjvVaf67u1WSjrP8LYF8Oty0VrMKI3sbFDz8HQ",
+    Alt:   "Logo",
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{image}, nil)
+
+fmt.Println(boilerplate)
+```
+
+![Label](./assets/components-image.png)
 
 - **Row**
 ```go
@@ -456,6 +535,7 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
     - TimelineParams ```acorntypes.TimelineParams```
     - TestimonialParams ```acorntypes.TestimonialParams```
     - TestimonialStyles ```acorntypes.TestimonialStyles```
+    - ImageParams ```acorntypes.ImageParams```
 
 #### Estilos
 

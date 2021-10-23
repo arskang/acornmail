@@ -215,8 +215,6 @@ func TestGrid(t *testing.T) {
 		},
 	})
 
-	fmt.Println(grid)
-
 	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
 
 	t.Log(boilerplate)
@@ -259,12 +257,6 @@ func TestTestimonial(t *testing.T) {
 		testimonialImage,
 	}, nil)
 
-	fmt.Println(
-		testimonialBorder,
-		testimonialIcon,
-		testimonialImage,
-	)
-
 	t.Log(boilerplate)
 
 }
@@ -275,8 +267,6 @@ func TestSpacer(t *testing.T) {
 	spacer := acorn.NewSpacer()
 
 	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{spacer}, acornstyles.WithoutMargins())
-
-	fmt.Println(spacer)
 
 	t.Log(boilerplate)
 }
@@ -290,7 +280,85 @@ func TestDivider(t *testing.T) {
 
 	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{divider}, acornstyles.WithoutMargins())
 
-	fmt.Println(divider)
+	t.Log(boilerplate)
+}
+
+func TestRealExample(t *testing.T) {
+	acorn := acornmail.NewAcornEmailComponents()
+
+	aligns := acornstyles.GetAligns()
+	colors := acornstyles.GetColors()
+
+	variables := acorntypes.AcornVariables{
+		"Name":  "Euclides Demóstenes",
+		"Token": "Q2FwZXJ1Y2l0YSByb2ph",
+	}
+
+	image := acorn.NewImage(&acorntypes.ImageParams{
+		Image: "https://i.picsum.photos/id/859/1200/280.jpg?hmac=cFup6pjvVaf67u1WSjrP8LYF8Oty0VrMKI3sbFDz8HQ",
+		Alt:   "Logo",
+	})
+
+	button := acorn.NewButton(&acorntypes.ButtonParams{
+		Text: "Activar cuenta",
+		Link: "https://www.example.com?t={{.Token}}",
+		Styles: &acorntypes.ButtonStyles{
+			Align:     aligns.Center,
+			Color:     colors.Cyan.M700,
+			TextColor: colors.White,
+		},
+	})
+
+	grid := acorn.NewGrid([][]*acorntypes.ColumnParams{
+		{{Content: image}},
+		{
+			{
+				Content: "<h1>¡Bienvenido!</h1>",
+				Styles: &acorntypes.ColumnStyles{
+					Align: aligns.Center,
+				},
+			},
+		},
+		{
+			{
+				Content: `
+				Hola <b>{{.Name}}</b> gracias por registrarte en nuestro sitio web, para poder activar tu cuenta da click en el siguiente enlace:
+				`,
+				Styles: &acorntypes.ColumnStyles{
+					Align: aligns.Center,
+				},
+			},
+		},
+		nil,
+		{
+			{
+				Content: button,
+				Styles: &acorntypes.ColumnStyles{
+					Align: aligns.Center,
+				},
+			},
+		},
+	})
+
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
+
+	html, err := acornmail.MergeVariables(boilerplate, variables)
+	if err != nil {
+		panic(err)
+	}
+
+	t.Log(html)
+}
+
+func TestImage(t *testing.T) {
+	acorn := acornmail.NewAcornEmailComponents()
+
+	image := acorn.NewImage(&acorntypes.ImageParams{
+		Image: "https://i.picsum.photos/id/859/1200/280.jpg?hmac=cFup6pjvVaf67u1WSjrP8LYF8Oty0VrMKI3sbFDz8HQ",
+		Alt:   "Logo",
+	})
+
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{image}, nil)
 
 	t.Log(boilerplate)
 }

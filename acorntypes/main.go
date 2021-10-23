@@ -72,6 +72,12 @@ type TestimonialParams struct {
 	Styles      *TestimonialStyles
 }
 
+type ImageParams struct {
+	Image       string
+	Alt         string
+	WidthColumn *WidthColumn
+}
+
 type ColumnStyles struct {
 	Align     *Align
 	Width     *WidthColumn
