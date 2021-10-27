@@ -1,5 +1,14 @@
 # Gomail Acorn Template
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/arskang/gomail-acorn-template)](https://goreportcard.com/report/github.com/arskang/gomail-acorn-template)
+[![GoDoc](https://pkg.go.dev/badge/github.com/arskang/gomail-acorn-template?status.svg)](https://pkg.go.dev/github.com/arskang/gomail-acorn-template?tab=doc)
+<!--
+[![Sourcegraph](https://sourcegraph.com/github.com/arskang/gomail-acorn-template/-/badge.svg)](https://sourcegraph.com/github.com/arskang/gomail-acorn-template?badge)
+-->
+[![Release](https://img.shields.io/github/release/arskang/gomail-acorn-template.svg?style=flat-square)](https://github.com/arskang/gomail-acorn-template/releases)
+
+### Contenido
+
 + [Librerías](#librerías)
 + [Instalación](#instalación)
 + [Importación](#importación)
@@ -99,7 +108,7 @@ func main() {
 
 }
 ```
-![Ejemplo 01](./assets/example-01.png)
+![Ejemplo 01](./_assets/example-01.png)
 
 #### Métodos
 
@@ -149,7 +158,7 @@ boilerplate := acorn.GetBoilerplate(
 
 fmt.Println(boilerplate)
 ```
-![Spacer](./assets/components-spacer.png)
+![Spacer](./_assets/components-spacer.png)
 
 - **Divider**
 ```go
@@ -166,7 +175,7 @@ boilerplate := acorn.GetBoilerplate(
 
 fmt.Println(boilerplate)
 ```
-![Divider](./assets/components-divider.png)
+![Divider](./_assets/components-divider.png)
 
 - **Label**
 ```go
@@ -192,7 +201,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 
 fmt.Println(boilerplate)
 ```
-![Label](./assets/components-label.png)
+![Label](./_assets/components-label.png)
 
 - **Image**
 ```go
@@ -208,7 +217,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{image}, nil)
 fmt.Println(boilerplate)
 ```
 
-![Label](./assets/components-image.png)
+![Label](./_assets/components-image.png)
 
 - **Row**
 ```go
@@ -243,7 +252,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Row](./assets/components-row.png)
+![Row](./_assets/components-row.png)
 
 - **Grid**
 ```go
@@ -285,7 +294,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
 fmt.Println(boilerplate)
 ```
 
-![Grid](./assets/components-grid.png)
+![Grid](./_assets/components-grid.png)
 
 - *Content*
 ```go
@@ -307,8 +316,8 @@ boilerplate := acorn.GetBoilerplate(
 
 fmt.Println(boilerplate)
 ```
-![Content](./assets/components-content.png)
-![Content](./assets/components-content-withoutimage.png)
+![Content](./_assets/components-content.png)
+![Content](./_assets/components-content-withoutimage.png)
 
 - **Alerts**
 ```go
@@ -335,7 +344,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 
 fmt.Println(boilerplate)
 ```
-![Alert](./assets/components-alert.png)
+![Alert](./_assets/components-alert.png)
 
 - **Buttons**
 ```go
@@ -400,7 +409,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Buttons](./assets/components-buttons.png)
+![Buttons](./_assets/components-buttons.png)
 
 - **Accordion**
 ```go
@@ -428,7 +437,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{accordion}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Accordion](./assets/components-accordion.png)
+![Accordion](./_assets/components-accordion.png)
 
 - **Timeline**
 ```go
@@ -461,7 +470,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{timeline}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Timeline](./assets/components-timeline.png)
+![Timeline](./_assets/components-timeline.png)
 
 - **Testimonial**
 ```go
@@ -501,7 +510,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 
 fmt.Println(boilerplate)
 ```
-![Testimonial](./assets/components-testimonial.png)
+![Testimonial](./_assets/components-testimonial.png)
 
 #### Tipos
 
@@ -574,8 +583,8 @@ fmt.Println(widthColumn.OneThird) // 1/3
 fmt.Println(widthColumn.TwoThird) // 2/3
 ```
 
-![Grid three](./assets/grid-three.png)
-![Grid four](./assets/grid-four.png)
+![Grid three](./_assets/grid-three.png)
+![Grid four](./_assets/grid-four.png)
 
 - *Colores*
 
@@ -592,6 +601,6 @@ if err != nil {
 fmt.Println(customColor)
 ```
 
-![Material color 01](./assets/material-color-01.jpeg)
-![Material color 02](./assets/material-color-02.jpeg)
-![Material color 03](./assets/material-color-03.jpeg)
+![Material color 01](./_assets/material-color-01.jpeg)
+![Material color 02](./_assets/material-color-02.jpeg)
+![Material color 03](./_assets/material-color-03.jpeg)

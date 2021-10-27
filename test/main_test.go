@@ -26,7 +26,7 @@ func TestMergeVariables(t *testing.T) {
 }
 
 func TestExample(t *testing.T) {
-	// Componentes
+	// Components
 	acorn := acornmail.NewAcornEmailComponents()
 
 	// Utilidades
