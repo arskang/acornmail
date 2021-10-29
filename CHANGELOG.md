@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Carpeta con ejemplos
 - Documentación a los métodos
 - Archivo **.editorconfig**
 - Archivo **CHANGELOG.md**
@@ -20,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
-- ```acorntypes.LabelStyles.Type``` usaer mejor ```acorntypes.LabelStyles.Outlined``` (se elimina en la próxima versión menor)
+- ```acorntypes.LabelStyles.Type``` usar mejor ```acorntypes.LabelStyles.Outlined``` (se elimina en la próxima versión menor)
 
 ## [1.0.0-beta] - 2021-10-23
 
