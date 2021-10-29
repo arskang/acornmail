@@ -1,11 +1,12 @@
 # Gomail Acorn Template
 
+<!-- img src="https://d3vv6lp55qjaqc.cloudfront.net/items/1L1w0v431V0d1K410f3Y/keepAChangelog-logo-dark.svg" height=150 alt="Keep a Changelog" / -->
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/arskang/gomail-acorn-template)](https://goreportcard.com/report/github.com/arskang/gomail-acorn-template)
 [![GoDoc](https://pkg.go.dev/badge/github.com/arskang/gomail-acorn-template?status.svg)](https://pkg.go.dev/github.com/arskang/gomail-acorn-template?tab=doc)
-<!--
-[![Sourcegraph](https://sourcegraph.com/github.com/arskang/gomail-acorn-template/-/badge.svg)](https://sourcegraph.com/github.com/arskang/gomail-acorn-template?badge)
--->
 [![Release](https://img.shields.io/github/release/arskang/gomail-acorn-template.svg?style=flat-square)](https://github.com/arskang/gomail-acorn-template/releases)
+[![MIT License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Keep a Changelog v1.1.0 badge](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.1.0-%23E05735)](./CHANGELOG.md)
 
 ### Contenido
 
@@ -17,6 +18,7 @@
 + [Componentes](#componentes)
 + [Tipos](#tipos)
 + [Estilos](#estilos)
++ [Ejemplos reales](#ejemplos-reales)
 
 #### Librerías
 Proyecto original:
@@ -604,3 +606,123 @@ fmt.Println(customColor)
 ![Material color 01](./_assets/material-color-01.jpeg)
 ![Material color 02](./_assets/material-color-02.jpeg)
 ![Material color 03](./_assets/material-color-03.jpeg)
+
+#### Ejemplos reales
+
+```go
+package helpers
+
+import (
+	acornmail "github.com/arskang/gomail-acorn-template"
+	"github.com/arskang/gomail-acorn-template/acornstyles"
+	"github.com/arskang/gomail-acorn-template/acorntypes"
+)
+
+type Colors struct {
+	Title            *acorntypes.Color
+	Text             *acorntypes.Color
+	BackgroundFooter *acorntypes.Color
+}
+
+func GetColors() *Colors {
+	title, _ := acornstyles.NewAcornColor("#4a7cf3")
+	text, _ := acornstyles.NewAcornColor("#555555")
+	backgroundFooter, _ := acornstyles.NewAcornColor("#e7eef7")
+	return &Colors{
+		Title:            title,
+		Text:             text,
+		BackgroundFooter: backgroundFooter,
+	}
+}
+
+func GetTitle() *acorntypes.ColumnParams {
+	return &acorntypes.ColumnParams{
+		Content: "<h1>{{.Title}}</h1>",
+		Styles: &acorntypes.ColumnStyles{
+			Align:     acornstyles.GetAligns().Center,
+			TextColor: GetColors().Title,
+		},
+	}
+}
+
+func GetHeader() [][]*acorntypes.ColumnParams {
+	acorn := acornmail.NewAcornEmailComponents()
+	headerTitle := GetTitle()
+	return [][]*acorntypes.ColumnParams{
+		{{Content: acorn.NewSpacer()}},
+		{headerTitle},
+		{{Content: acorn.NewDivider(GetColors().Title)}},
+	}
+}
+
+func GetButton() string {
+	acorn := acornmail.NewAcornEmailComponents()
+	return acorn.NewButton(&acorntypes.ButtonParams{
+		Text: "{{.TxtButton}}",
+		Link: "{{.Url}}",
+		Styles: &acorntypes.ButtonStyles{
+			FullWidth: true,
+			Color:     GetColors().Title,
+			Type:      acornstyles.GetTypes().Pill,
+			Align:     acornstyles.GetAligns().Center,
+		},
+	})
+}
+
+func GetFooter() string {
+	acorn := acornmail.NewAcornEmailComponents()
+	row := acorn.NewRow([]*acorntypes.ColumnParams{
+		{
+			Content: "<b>{{.Footer}}</b>",
+			Styles: &acorntypes.ColumnStyles{
+				Width: acornstyles.GetWidthColumns().ThreeQuarters,
+				Align: acornstyles.GetAligns().Center,
+			},
+		},
+	})
+
+	colors := GetColors()
+	return acorn.NewAlert(&acorntypes.AlertParams{
+		Content: row,
+		Styles: &acorntypes.AlertStyles{
+			Color:     colors.BackgroundFooter,
+			TextColor: colors.Text,
+		},
+	})
+}
+
+func GetBasicTemplate(content string, variables acorntypes.AcornVariables, button bool) (string, error) {
+
+	acorn := acornmail.NewAcornEmailComponents()
+
+	rowSpacer := []*acorntypes.ColumnParams{
+		{Content: acorn.NewSpacer()},
+	}
+
+	columns := append(
+		GetHeader(),
+		[]*acorntypes.ColumnParams{{Content: content}},
+		rowSpacer,
+	)
+
+	if button {
+		columns = append(
+			columns,
+			[]*acorntypes.ColumnParams{{Content: GetButton()}},
+			rowSpacer,
+		)
+	}
+
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+		acorn.NewGrid(columns),
+		GetFooter(),
+	}, acornstyles.WithoutMargins())
+
+	html, err := acornmail.MergeVariables(boilerplate, variables)
+	if err != nil {
+		return "", err
+	}
+
+	return html, nil
+}
+```

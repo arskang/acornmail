@@ -10,6 +10,8 @@ func setType(t string) *acorntypes.Types {
 	return (*acorntypes.Types)(&t)
 }
 
+// Return types:
+// Filled, Outlined and Pill (*acorntypes.Types)
 func GetTypes() *types {
 	return &types{
 		Filled:   setType("filled"),

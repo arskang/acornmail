@@ -11,6 +11,7 @@ type testimonail struct {
 	Params *acorntypes.TestimonialParams
 }
 
+// Generate a new testimonial html element
 func (h HTML) NewTestimonial(params *acorntypes.TestimonialParams) string {
 	t := testimonail{Params: params}
 	return t.getTestimonial()

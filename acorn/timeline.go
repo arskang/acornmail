@@ -10,6 +10,7 @@ type timeline struct {
 	Params []*acorntypes.TimelineParams
 }
 
+// Generate a new timeline html element
 func (h HTML) NewTimeline(params []*acorntypes.TimelineParams) string {
 	t := timeline{Params: params}
 	return t.getTimelines()

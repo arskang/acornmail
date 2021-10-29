@@ -6,6 +6,7 @@ import (
 	"github.com/arskang/gomail-acorn-template/acorntypes"
 )
 
+// Generate a new boilerplate html element
 func (h HTML) GetBoilerplate(elements acorntypes.AcornComponents, withoutMargins *bool) string {
 	spacer := h.NewSpacer()
 	if withoutMargins != nil && *withoutMargins {

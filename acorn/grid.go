@@ -12,7 +12,7 @@ type row struct {
 	Params []*acorntypes.ColumnParams
 }
 
-// Create a new grid
+// Generate a new grid html element
 func (h HTML) NewGrid(rows [][]*acorntypes.ColumnParams) string {
 	if len(rows) > 0 {
 		var grid []string
@@ -30,7 +30,7 @@ func (h HTML) NewGrid(rows [][]*acorntypes.ColumnParams) string {
 	return ""
 }
 
-// Create a new row
+// Generate a new row html element
 func (h HTML) NewRow(params []*acorntypes.ColumnParams) string {
 	r := &row{Params: params}
 	return r.getRow()

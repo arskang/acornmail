@@ -12,6 +12,9 @@ func setAlign(a string) *acorntypes.Align {
 	return (*acorntypes.Align)(&a)
 }
 
+// Return aligns:
+// Center, Right and Left
+// (*acorntypes.Align)
 func GetAligns() *aligns {
 	return &aligns{
 		Center: setAlign("center"),

@@ -9,6 +9,7 @@ type label struct {
 	Params *acorntypes.LabelParams
 }
 
+// Generate a new label html element
 func (h HTML) NewLabel(params *acorntypes.LabelParams) string {
 	l := label{Params: params}
 	return l.getLabel()
@@ -51,6 +52,9 @@ func (l label) getLabel() string {
 			case *acornTypes.Outlined:
 				return l.getLabelOutlined(l.Params, color, txtColor)
 			}
+		}
+		if l.Params.Styles != nil && l.Params.Styles.Outlined {
+			return l.getLabelOutlined(l.Params, color, txtColor)
 		}
 		return l.getLabelFilled(l.Params, color, txtColor)
 	}

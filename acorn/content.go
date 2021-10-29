@@ -5,6 +5,7 @@ import (
 	"github.com/arskang/gomail-acorn-template/acorntypes"
 )
 
+// Generate a new content html element
 func (h HTML) NewContent(params *acorntypes.ContentParams) string {
 	colors := acornstyles.GetColors()
 	color := colors.Grey.M800
