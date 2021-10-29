@@ -10,6 +10,9 @@ func setColumn(s string) *acorntypes.WidthColumn {
 	return (*acorntypes.WidthColumn)(&s)
 }
 
+// Return width columns:
+// Full, Quarter, Medium, ThreeQuarters, OneThird and TwoThird
+// (*acorntypes.WidthColumn)
 func GetWidthColumns() *widthColumns {
 	return &widthColumns{
 		Full:          setColumn("100%"),

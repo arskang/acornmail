@@ -9,6 +9,7 @@ type alert struct {
 	Params *acorntypes.AlertParams
 }
 
+// Generate a new alert html element
 func (h HTML) NewAlert(params *acorntypes.AlertParams) string {
 	a := &alert{Params: params}
 	return a.getAlert()

@@ -9,6 +9,7 @@ type button struct {
 	Params *acorntypes.ButtonParams
 }
 
+// Generate a new button html element
 func (h HTML) NewButton(params *acorntypes.ButtonParams) string {
 	b := &button{Params: params}
 	return b.getButton()

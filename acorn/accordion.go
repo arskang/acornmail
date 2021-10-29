@@ -11,6 +11,7 @@ type accordion struct {
 	Params []*acorntypes.AccordionParams
 }
 
+// Generate a new accordion html element
 func (h HTML) NewAccordion(params []*acorntypes.AccordionParams) string {
 	a := &accordion{Params: params}
 	return a.getAccordion()

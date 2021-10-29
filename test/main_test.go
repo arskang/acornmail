@@ -29,6 +29,9 @@ func TestExample(t *testing.T) {
 	// Components
 	acorn := acornmail.NewAcornEmailComponents()
 
+	fmt.Println(acornstyles.RGX_HEXCOLOR)
+	fmt.Println(acornstyles.RGX_URL)
+
 	// Utilidades
 	widthColumns := acornstyles.GetWidthColumns()
 	colors := acornstyles.GetColors()

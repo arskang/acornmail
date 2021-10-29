@@ -7,6 +7,7 @@ import (
 	"github.com/arskang/gomail-acorn-template/acorntypes"
 )
 
+// Generate a new image html element
 func (h HTML) NewImage(params *acorntypes.ImageParams) string {
 	alt := "Image"
 	widthColumn := acornstyles.GetWidthColumns()

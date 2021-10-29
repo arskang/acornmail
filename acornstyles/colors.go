@@ -43,6 +43,7 @@ func setColor(s string) *acorntypes.Color {
 	return (*acorntypes.Color)(&s)
 }
 
+// Valid if it is a hex color
 func IsHexColor(hex string) bool {
 	match, err := regexp.MatchString(RGX_HEXCOLOR, hex)
 	if err != nil {
@@ -51,6 +52,7 @@ func IsHexColor(hex string) bool {
 	return match
 }
 
+// Create a new hex color
 func NewAcornColor(hex string) (*acorntypes.Color, error) {
 	if IsHexColor(hex) {
 		return setColor(hex), nil
@@ -58,6 +60,14 @@ func NewAcornColor(hex string) (*acorntypes.Color, error) {
 	return nil, fmt.Errorf("it is not a hexadecimal color")
 }
 
+// Return colors:
+// Material design color palette
+//
+// White and Black (*acorntypes.Color)
+//
+// Brown, Grey and BlueGrey (*colorPalette)
+//
+// Red, Pink, Purple, DeepPurple, Indigo, Blue, LightBlue, Cyan, Teal, Green, LightGreen, Lime, Yellow, Amber, Orange and DeepOrange (*colorPaletteA)
 func GetColors() *colors {
 	return &colors{
 		White: setColor("#ffffff"),
