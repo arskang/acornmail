@@ -32,6 +32,14 @@ func (t Types) String() string {
 	return string(t)
 }
 
+// Type FontSize (string)
+type FontSize string
+
+// Return a string
+func (fs FontSize) String() string {
+	return string(fs)
+}
+
 // Type AcornComponents ([]string)
 type AcornComponents []string
 
@@ -97,6 +105,26 @@ type ImageParams struct {
 	WidthColumn *WidthColumn
 }
 
+// Type CouponParams
+type CouponParams struct {
+	Content string
+	Button  *ButtonParams
+}
+
+// Type PromoItems
+type PromoItems struct {
+	Promo       *PromoParams
+	Symbol      *PromoParams
+	Description *PromoParams
+}
+
+// Type PromoParams
+type PromoParams struct {
+	Value string
+	Color *Color
+	Size  *FontSize
+}
+
 // Type ColumnStyles
 type ColumnStyles struct {
 	Align     *Align
@@ -140,5 +168,12 @@ type LabelStyles struct {
 type TestimonialStyles struct {
 	Image       string
 	Align       *Align
+	BorderColor *Color
+}
+
+// Type CouponStyles
+type CouponStyles struct {
+	Dashed      bool
+	Color       *Color
 	BorderColor *Color
 }

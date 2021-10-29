@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- FontSize ```acorntypes.FontSize```
+- CouponParams ```acorntypes.CouponParams```
+- PromoItems ```acorntypes.PromoItems```
+- PromoParams ```acorntypes.PromoParams```
+- CouponStyles ```acorntypes.CouponStyles```
+- GetSizes
+- NewAcornSize
+- GetAligns
+- NewCoupon
+- NewPromo
 - Carpeta con ejemplos
 - Documentación a los métodos
 - Archivo **.editorconfig**

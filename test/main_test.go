@@ -365,3 +365,28 @@ func TestImage(t *testing.T) {
 
 	t.Log(boilerplate)
 }
+
+func TestPromo(t *testing.T) {
+	acorn := acornmail.NewAcornEmailComponents()
+	sizes := acornstyles.GetSizes()
+
+	promo := acorn.NewPromo(&acorntypes.PromoItems{
+		Promo: &acorntypes.PromoParams{
+			Value: "25",
+			Size:  sizes.Px108,
+		},
+		Symbol: &acorntypes.PromoParams{
+			Value: "%",
+			Color: acornstyles.GetColors().Green.M700,
+			Size:  sizes.Px36,
+		},
+		Description: &acorntypes.PromoParams{
+			Value: "OFF",
+			Size:  sizes.Px24,
+		},
+	})
+
+	fmt.Println(promo)
+
+	t.Log(promo)
+}
