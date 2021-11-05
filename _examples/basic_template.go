@@ -1,9 +1,9 @@
 package examples
 
 import (
-	acornmail "github.com/arskang/gomail-acorn-template"
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type Colors struct {

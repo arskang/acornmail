@@ -1,6 +1,6 @@
 package acornstyles
 
-import "github.com/arskang/gomail-acorn-template/acorntypes"
+import "github.com/arskang/acornmail/acorntypes"
 
 type widthColumns struct {
 	Full, Quarter, Medium, ThreeQuarters, OneThird, TwoThird *acorntypes.WidthColumn
