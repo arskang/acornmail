@@ -1,6 +1,6 @@
 package acornstyles
 
-import "github.com/arskang/gomail-acorn-template/acorntypes"
+import "github.com/arskang/acornmail/acorntypes"
 
 type types struct {
 	Filled, Outlined, Pill *acorntypes.Types

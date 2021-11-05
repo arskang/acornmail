@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/arskang/gomail-acorn-template/acorn"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acorn"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 func NewAcornEmailComponents() *acorn.HTML {

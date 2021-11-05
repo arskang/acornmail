@@ -2,9 +2,9 @@
 
 <!-- img src="https://d3vv6lp55qjaqc.cloudfront.net/items/1L1w0v431V0d1K410f3Y/keepAChangelog-logo-dark.svg" height=150 alt="Keep a Changelog" / -->
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/arskang/gomail-acorn-template)](https://goreportcard.com/report/github.com/arskang/gomail-acorn-template)
-[![GoDoc](https://pkg.go.dev/badge/github.com/arskang/gomail-acorn-template?status.svg)](https://pkg.go.dev/github.com/arskang/gomail-acorn-template?tab=doc)
-[![Release](https://img.shields.io/github/release/arskang/gomail-acorn-template.svg?style=flat-square)](https://github.com/arskang/gomail-acorn-template/releases)
+[![Go Report Card](https://goreportcard.com/badge/github.com/arskang/acornmail)](https://goreportcard.com/report/github.com/arskang/acornmail)
+[![GoDoc](https://pkg.go.dev/badge/github.com/arskang/acornmail?status.svg)](https://pkg.go.dev/github.com/arskang/acornmail?tab=doc)
+[![Release](https://img.shields.io/github/release/arskang/acornmail.svg?style=flat-square)](https://github.com/arskang/acornmail/releases)
 [![MIT License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Keep a Changelog v1.1.0 badge](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.1.0-%23E05735)](./CHANGELOG.md)
 
@@ -29,18 +29,18 @@ Colores:
 
 #### Instalación
 ```
-go get -u github.com/arskang/gomail-acorn-template
+go get -u github.com/arskang/acornmail
 ```
 
 #### Importación
 ```go
-import acornmail "github.com/arskang/gomail-acorn-template"
+import "github.com/arskang/acornmail"
 ```
 
 #### Ejemplo
 Más ejemplos [aquí](./_examples/)
 ```go
-import acornmail "github.com/arskang/gomail-acorn-template"
+import "github.com/arskang/acornmail"
 
 func main() {
 
@@ -193,7 +193,7 @@ labelFilled := acorn.NewLabel(&acorntypes.LabelParams{
 labelOutlined := acorn.NewLabel(&acorntypes.LabelParams{
     Text: "outlined label",
     Styles: &acorntypes.LabelStyles{
-        Type: types.Outlined,
+        Outlined: true,
     },
 })
 
@@ -568,11 +568,102 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 ```
 ![Promo custom](./_assets/components-promo02.png)
 
+- **Coupon**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+color := acornstyles.GetColors()
+aligns := acornstyles.GetAligns()
+
+coupon := acorn.NewCoupon(&acorntypes.CouponParams{
+    Content: acorn.NewGrid([][]*acorntypes.ColumnParams{
+        {{
+            Content: `
+            <div style="font-size: 13px; text-transform: uppercase;">¡Gracias por registrarte!<br>Disfruta</div>
+            <div style="font-size: 72px; font-weight: 700; line-height: 100%;">$10 DESC</div>
+            <div class="spacer py-sm-8" style="line-height: 16px;">‌</div>
+            <div style="font-size: 20px; letter-spacing: 2px; line-height: 100%; text-transform: uppercase;">En tu primera compra</div>
+            `,
+            Styles: &acorntypes.ColumnStyles{
+                Align:     aligns.Center,
+                TextColor: color.White,
+            },
+        }},
+        nil,
+    }),
+    Button: &acorntypes.ButtonParams{
+        Text: "COMPRA AHORA",
+        Styles: &acorntypes.ButtonStyles{
+            Color:     color.White,
+            TextColor: color.Blue.M500,
+            Align:     aligns.Center,
+        },
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    coupon,
+}, acornstyles.WithoutMargins())
+```
+![Coupon default](./_assets/components-coupon01.png)
+
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+color := acornstyles.GetColors()
+aligns := acornstyles.GetAligns()
+
+promo := acorn.NewPromo(&acorntypes.PromoItems{
+    Promo:       &acorntypes.PromoParams{Value: "25"},
+    Symbol:      &acorntypes.PromoParams{Value: "%"},
+    Description: &acorntypes.PromoParams{Value: "DESC"},
+})
+
+label := acorn.NewLabel(&acorntypes.LabelParams{
+    Text: "25OFFTODAY",
+    Styles: &acorntypes.LabelStyles{
+        Outlined:  true,
+        TextColor: color.Red.M500,
+        Color:     color.Red.M500,
+    },
+})
+
+coupon := acorn.NewCoupon(&acorntypes.CouponParams{
+    Content: acorn.NewGrid([][]*acorntypes.ColumnParams{
+        {{Content: promo}},
+        {{
+            Content: `Con el cupón ` + label,
+            Styles: &acorntypes.ColumnStyles{
+                Align:     aligns.Center,
+                TextColor: color.Grey.M400,
+            },
+        }},
+        nil,
+    }),
+    Button: &acorntypes.ButtonParams{
+        Text: "Canjear cupón →",
+        Styles: &acorntypes.ButtonStyles{
+            Color:     color.Black,
+            TextColor: color.White,
+            Align:     aligns.Center,
+        },
+    },
+    Styles: &acorntypes.CouponStyles{
+        Dashed: true,
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    coupon,
+}, acornstyles.WithoutMargins())
+```
+![Coupon dashed](./_assets/components-coupon02.png)
+
 #### Tipos
 
 - *Importación*
 ```go
-import "github.com/arskang/gomail-acorn-template/acorntypes"
+import "github.com/arskang/acornmail/acorntypes"
 ```
 
 - *Básicos*
@@ -611,7 +702,7 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
 
 - *Importación*
 ```go
-import "github.com/arskang/gomail-acorn-template/acornstyles"
+import "github.com/arskang/acornmail/acornstyles"
 ```
 
 - *Tipo de botones*

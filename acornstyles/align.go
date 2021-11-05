@@ -1,7 +1,7 @@
 package acornstyles
 
 import (
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type aligns struct {

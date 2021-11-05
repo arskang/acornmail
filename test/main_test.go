@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	acornmail "github.com/arskang/gomail-acorn-template"
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 func TestMergeVariables(t *testing.T) {
@@ -131,7 +131,7 @@ func TestExample(t *testing.T) {
 	labelOutlined := acorn.NewLabel(&acorntypes.LabelParams{
 		Text: "outlined label",
 		Styles: &acorntypes.LabelStyles{
-			Type: types.Outlined,
+			Outlined: true,
 		},
 	})
 
@@ -368,25 +368,86 @@ func TestImage(t *testing.T) {
 
 func TestPromo(t *testing.T) {
 	acorn := acornmail.NewAcornEmailComponents()
-	sizes := acornstyles.GetSizes()
+	color := acornstyles.GetColors()
+	aligns := acornstyles.GetAligns()
 
 	promo := acorn.NewPromo(&acorntypes.PromoItems{
-		Promo: &acorntypes.PromoParams{
-			Value: "25",
-			Size:  sizes.Px108,
-		},
-		Symbol: &acorntypes.PromoParams{
-			Value: "%",
-			Color: acornstyles.GetColors().Green.M700,
-			Size:  sizes.Px36,
-		},
-		Description: &acorntypes.PromoParams{
-			Value: "OFF",
-			Size:  sizes.Px24,
+		Promo:       &acorntypes.PromoParams{Value: "25"},
+		Symbol:      &acorntypes.PromoParams{Value: "%"},
+		Description: &acorntypes.PromoParams{Value: "DESC"},
+	})
+
+	label := acorn.NewLabel(&acorntypes.LabelParams{
+		Text: "25OFFTODAY",
+		Styles: &acorntypes.LabelStyles{
+			Outlined:  true,
+			TextColor: color.Red.M500,
+			Color:     color.Red.M500,
 		},
 	})
 
-	fmt.Println(promo)
+	coupon := acorn.NewCoupon(&acorntypes.CouponParams{
+		Content: acorn.NewGrid([][]*acorntypes.ColumnParams{
+			{{Content: promo}},
+			{{
+				Content: `Con el cupón ` + label,
+				Styles: &acorntypes.ColumnStyles{
+					Align:     aligns.Center,
+					TextColor: color.Grey.M400,
+				},
+			}},
+			nil,
+		}),
+		Button: &acorntypes.ButtonParams{
+			Text: "Canjear cupón →",
+			Styles: &acorntypes.ButtonStyles{
+				Color:     color.Black,
+				TextColor: color.White,
+				Align:     aligns.Center,
+			},
+		},
+		Styles: &acorntypes.CouponStyles{
+			Dashed: true,
+		},
+	})
 
-	t.Log(promo)
+	fmt.Println(coupon)
+
+	t.Log(coupon)
+}
+
+func TestCuopon(t *testing.T) {
+	acorn := acornmail.NewAcornEmailComponents()
+	color := acornstyles.GetColors()
+	aligns := acornstyles.GetAligns()
+
+	coupon := acorn.NewCoupon(&acorntypes.CouponParams{
+		Content: acorn.NewGrid([][]*acorntypes.ColumnParams{
+			{{
+				Content: `
+				<div style="font-size: 13px; text-transform: uppercase;">¡Gracias por registrarte!<br>Disfruta</div>
+				<div style="font-size: 72px; font-weight: 700; line-height: 100%;">$10 DESC</div>
+				<div class="spacer py-sm-8" style="line-height: 16px;">‌</div>
+				<div style="font-size: 20px; letter-spacing: 2px; line-height: 100%; text-transform: uppercase;">En tu primera compra</div>
+				`,
+				Styles: &acorntypes.ColumnStyles{
+					Align:     aligns.Center,
+					TextColor: color.White,
+				},
+			}},
+			nil,
+		}),
+		Button: &acorntypes.ButtonParams{
+			Text: "COMPRA AHORA",
+			Styles: &acorntypes.ButtonStyles{
+				Color:     color.White,
+				TextColor: color.Blue.M500,
+				Align:     aligns.Center,
+			},
+		},
+	})
+
+	fmt.Println(coupon)
+
+	t.Log(coupon)
 }

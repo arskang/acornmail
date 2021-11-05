@@ -3,7 +3,7 @@ package acornstyles
 import (
 	"fmt"
 
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type sizes struct {

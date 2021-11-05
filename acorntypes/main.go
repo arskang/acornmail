@@ -109,6 +109,7 @@ type ImageParams struct {
 type CouponParams struct {
 	Content string
 	Button  *ButtonParams
+	Styles  *CouponStyles
 }
 
 // Type PromoItems
@@ -161,7 +162,6 @@ type LabelStyles struct {
 	Outlined  bool
 	Color     *Color
 	TextColor *Color
-	Type      *Types // Deprecated: Uses better Outlined
 }
 
 // Type TestimonialStyles

@@ -26,12 +26,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- La importación cambia a github.com/arskang/acornmail
 - Se optimizaron las imagenes con ejemplos en el **README.md**
 - Se renombró la carpeta **assets** por **_assets** para que golang no lo importe
 
-### Deprecated
+### Removed
 
-- ```acorntypes.LabelStyles.Type``` usar mejor ```acorntypes.LabelStyles.Outlined``` (se elimina en la próxima versión menor)
+- ```acorntypes.LabelStyles.Type``` usar mejor ```acorntypes.LabelStyles.Outlined```
 
 ## [1.0.0-beta] - 2021-10-23
 
@@ -90,5 +91,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Archivo **LICENSE**
 - Archivo **README.md**
 
-[unreleased]: https://github.com/arskang/gomail-acorn-template/tree/develop
-[1.0.0-beta]: https://github.com/arskang/gomail-acorn-template/releases/tag/v1.0.0-beta
+[unreleased]: https://github.com/arskang/acornmail/tree/develop
+[1.0.0-beta]: https://github.com/arskang/acornmail/releases/tag/v1.0.0-beta

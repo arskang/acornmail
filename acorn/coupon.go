@@ -1,8 +1,8 @@
 package acorn
 
 import (
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type coupon struct {
@@ -11,7 +11,12 @@ type coupon struct {
 
 // Generate a new coupon html element
 func (h HTML) NewCoupon(params *acorntypes.CouponParams) string {
-	return ""
+	p := &coupon{Params: params}
+	var button string
+	if p.Params.Button != nil {
+		button = h.NewButton(p.Params.Button)
+	}
+	return p.getCoupon(button)
 }
 
 // Generate a new promo html element
@@ -77,10 +82,19 @@ func (h HTML) NewPromo(items *acorntypes.PromoItems) string {
 }
 
 func (c coupon) getCouponDashed(button string) string {
+	acornColors := acornstyles.GetColors()
+	color := acornColors.White
+	borderColor := acornColors.Grey.M300
+	if c.Params.Styles != nil && c.Params.Styles.Color != nil {
+		color = c.Params.Styles.Color
+	}
+	if c.Params.Styles != nil && c.Params.Styles.BorderColor != nil {
+		borderColor = c.Params.Styles.BorderColor
+	}
 	return `
 	<table cellpadding="0" cellspacing="0" role="presentation" width="100%">
 		<tr>
-			<td style="padding: 0 32px;">
+			<td style="padding: 0 32px;" bgcolor="` + color.String() + `">
 				<table cellpadding="0" cellspacing="0" role="presentation" width="100%">
 					<tr>
 						<td class="col" align="center" width="100%">
@@ -89,7 +103,7 @@ func (c coupon) getCouponDashed(button string) string {
 									<td class="spacer py-sm-16" height="32"></td>
 								</tr>
 								<tr>
-									<td class="px-sm-8" align="center" width="100%" style="padding: 32px; border: 4px dashed #CCCCCC; color: #000000;">
+									<td class="px-sm-8" align="center" width="100%" style="padding: 32px; border: 4px dashed ` + borderColor.String() + `;">
 										` + c.Params.Content + `
 										<table cellpadding="0" cellspacing="0" role="presentation">
 											<tr>
@@ -110,4 +124,49 @@ func (c coupon) getCouponDashed(button string) string {
 		</tr>
 	</table>
 	`
+}
+
+func (c coupon) getCouponFilled(button string) string {
+	acornColors := acornstyles.GetColors()
+	color := acornColors.Blue.M500
+	borderColor := acornColors.White
+	if c.Params.Styles != nil && c.Params.Styles.Color != nil {
+		color = c.Params.Styles.Color
+	}
+	if c.Params.Styles != nil && c.Params.Styles.BorderColor != nil {
+		borderColor = c.Params.Styles.BorderColor
+	}
+	return `
+	<table cellpadding="0" cellspacing="0" role="presentation" width="100%">
+		<tr>
+			<td class="p-sm-16" bgcolor="` + color.String() + `" width="100%" style="padding: 32px;">
+				<table cellpadding="0" cellspacing="0" role="presentation" width="100%">
+					<tr>
+						<td class="col" align="center" width="100%" style="border: 1px solid ` + borderColor.String() + `;">
+							<table>
+								<tr>
+									<td class="p-sm-16" style="padding: 32px;">
+										` + c.Params.Content + `
+										<table cellpadding="0" cellspacing="0" role="presentation">
+											<tr>
+												` + button + `
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	`
+}
+
+func (c coupon) getCoupon(button string) string {
+	if c.Params.Styles != nil && c.Params.Styles.Dashed {
+		return c.getCouponDashed(button)
+	}
+	return c.getCouponFilled(button)
 }
