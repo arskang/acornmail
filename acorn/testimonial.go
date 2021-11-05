@@ -3,14 +3,15 @@ package acorn
 import (
 	"strings"
 
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type testimonail struct {
 	Params *acorntypes.TestimonialParams
 }
 
+// Generate a new testimonial html element
 func (h HTML) NewTestimonial(params *acorntypes.TestimonialParams) string {
 	t := testimonail{Params: params}
 	return t.getTestimonial()

@@ -1,14 +1,15 @@
 package acorn
 
 import (
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type label struct {
 	Params *acorntypes.LabelParams
 }
 
+// Generate a new label html element
 func (h HTML) NewLabel(params *acorntypes.LabelParams) string {
 	l := label{Params: params}
 	return l.getLabel()
@@ -30,7 +31,6 @@ func (l label) getLabel() string {
 	if l.Params != nil {
 
 		acornColors := acornstyles.GetColors()
-		acornTypes := acornstyles.GetTypes()
 
 		color := acornColors.Green.M800
 		txtColor := acornColors.White
@@ -41,16 +41,13 @@ func (l label) getLabel() string {
 			}
 			if l.Params.Styles.TextColor != nil && acornstyles.IsHexColor(string(*l.Params.Styles.TextColor)) {
 				txtColor = l.Params.Styles.TextColor
-			} else if l.Params.Styles.Type != nil && *l.Params.Styles.Type == *acornTypes.Outlined {
+			} else if l.Params.Styles.Outlined {
 				txtColor = color
 			}
 		}
 
-		if l.Params.Styles != nil && l.Params.Styles.Type != nil {
-			switch *l.Params.Styles.Type {
-			case *acornTypes.Outlined:
-				return l.getLabelOutlined(l.Params, color, txtColor)
-			}
+		if l.Params.Styles != nil && l.Params.Styles.Outlined {
+			return l.getLabelOutlined(l.Params, color, txtColor)
 		}
 		return l.getLabelFilled(l.Params, color, txtColor)
 	}

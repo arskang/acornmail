@@ -4,17 +4,18 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type row struct {
 	Params []*acorntypes.ColumnParams
 }
 
+// Generate a new grid html element
 func (h HTML) NewGrid(rows [][]*acorntypes.ColumnParams) string {
-	var grid []string
 	if len(rows) > 0 {
+		var grid []string
 		for _, row := range rows {
 			var r string
 			if row != nil {
@@ -29,6 +30,7 @@ func (h HTML) NewGrid(rows [][]*acorntypes.ColumnParams) string {
 	return ""
 }
 
+// Generate a new row html element
 func (h HTML) NewRow(params []*acorntypes.ColumnParams) string {
 	r := &row{Params: params}
 	return r.getRow()

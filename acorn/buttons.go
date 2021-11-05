@@ -1,14 +1,15 @@
 package acorn
 
 import (
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type button struct {
 	Params *acorntypes.ButtonParams
 }
 
+// Generate a new button html element
 func (h HTML) NewButton(params *acorntypes.ButtonParams) string {
 	b := &button{Params: params}
 	return b.getButton()

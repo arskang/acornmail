@@ -1,5 +1,15 @@
 # Gomail Acorn Template
 
+<!-- img src="https://d3vv6lp55qjaqc.cloudfront.net/items/1L1w0v431V0d1K410f3Y/keepAChangelog-logo-dark.svg" height=150 alt="Keep a Changelog" / -->
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/arskang/acornmail)](https://goreportcard.com/report/github.com/arskang/acornmail)
+[![GoDoc](https://pkg.go.dev/badge/github.com/arskang/acornmail?status.svg)](https://pkg.go.dev/github.com/arskang/acornmail?tab=doc)
+[![Release](https://img.shields.io/github/release/arskang/acornmail.svg?style=flat-square)](https://github.com/arskang/acornmail/releases)
+[![MIT License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Keep a Changelog v1.1.0 badge](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.1.0-%23E05735)](./CHANGELOG.md)
+
+### Contenido
+
 + [Librerías](#librerías)
 + [Instalación](#instalación)
 + [Importación](#importación)
@@ -8,6 +18,7 @@
 + [Componentes](#componentes)
 + [Tipos](#tipos)
 + [Estilos](#estilos)
++ [Ejemplos reales](#ejemplos-reales)
 
 #### Librerías
 Proyecto original:
@@ -18,17 +29,18 @@ Colores:
 
 #### Instalación
 ```
-go get -u github.com/arskang/gomail-acorn-template
+go get -u github.com/arskang/acornmail
 ```
 
 #### Importación
 ```go
-import acornmail "github.com/arskang/gomail-acorn-template"
+import "github.com/arskang/acornmail"
 ```
 
 #### Ejemplo
+Más ejemplos [aquí](./_examples/)
 ```go
-import acornmail "github.com/arskang/gomail-acorn-template"
+import "github.com/arskang/acornmail"
 
 func main() {
 
@@ -99,7 +111,7 @@ func main() {
 
 }
 ```
-![Ejemplo 01](./assets/example-01.png)
+![Ejemplo 01](./_assets/example-01.png)
 
 #### Métodos
 
@@ -149,7 +161,7 @@ boilerplate := acorn.GetBoilerplate(
 
 fmt.Println(boilerplate)
 ```
-![Spacer](./assets/components-spacer.png)
+![Spacer](./_assets/components-spacer.png)
 
 - **Divider**
 ```go
@@ -166,7 +178,7 @@ boilerplate := acorn.GetBoilerplate(
 
 fmt.Println(boilerplate)
 ```
-![Divider](./assets/components-divider.png)
+![Divider](./_assets/components-divider.png)
 
 - **Label**
 ```go
@@ -181,7 +193,7 @@ labelFilled := acorn.NewLabel(&acorntypes.LabelParams{
 labelOutlined := acorn.NewLabel(&acorntypes.LabelParams{
     Text: "outlined label",
     Styles: &acorntypes.LabelStyles{
-        Type: types.Outlined,
+        Outlined: true,
     },
 })
 
@@ -192,7 +204,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 
 fmt.Println(boilerplate)
 ```
-![Label](./assets/components-label.png)
+![Label](./_assets/components-label.png)
 
 - **Image**
 ```go
@@ -208,7 +220,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{image}, nil)
 fmt.Println(boilerplate)
 ```
 
-![Label](./assets/components-image.png)
+![Label](./_assets/components-image.png)
 
 - **Row**
 ```go
@@ -243,7 +255,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{row}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Row](./assets/components-row.png)
+![Row](./_assets/components-row.png)
 
 - **Grid**
 ```go
@@ -285,20 +297,16 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
 fmt.Println(boilerplate)
 ```
 
-![Grid](./assets/components-grid.png)
+![Grid](./_assets/components-grid.png)
 
 - *Content*
 ```go
+acorn := acornmail.NewAcornEmailComponents()
 
 content := acorn.NewContent(&acorntypes.ContentParams{
     Content: row,
     Image:   "https://picsum.photos/1200/800?image=837",
 })
-
-// Without image
-// content := acorn.NewContent(&acorntypes.ContentParams{
-//     Content: row,
-// })
 
 boilerplate := acorn.GetBoilerplate(
     acorntypes.AcornComponents{content}, 
@@ -307,8 +315,23 @@ boilerplate := acorn.GetBoilerplate(
 
 fmt.Println(boilerplate)
 ```
-![Content](./assets/components-content.png)
-![Content](./assets/components-content-withoutimage.png)
+![Content](./_assets/components-content.png)
+
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+content := acorn.NewContent(&acorntypes.ContentParams{
+    Content: row,
+})
+
+boilerplate := acorn.GetBoilerplate(
+    acorntypes.AcornComponents{content}, 
+    acornstyles.WithoutMargins(),
+)
+
+fmt.Println(boilerplate)
+```
+![Content](./_assets/components-content-withoutimage.png)
 
 - **Alerts**
 ```go
@@ -335,7 +358,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 
 fmt.Println(boilerplate)
 ```
-![Alert](./assets/components-alert.png)
+![Alert](./_assets/components-alert.png)
 
 - **Buttons**
 ```go
@@ -400,7 +423,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Buttons](./assets/components-buttons.png)
+![Buttons](./_assets/components-buttons.png)
 
 - **Accordion**
 ```go
@@ -428,7 +451,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{accordion}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Accordion](./assets/components-accordion.png)
+![Accordion](./_assets/components-accordion.png)
 
 - **Timeline**
 ```go
@@ -461,7 +484,7 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{timeline}, nil)
 
 fmt.Println(boilerplate)
 ```
-![Timeline](./assets/components-timeline.png)
+![Timeline](./_assets/components-timeline.png)
 
 - **Testimonial**
 ```go
@@ -501,13 +524,146 @@ boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
 
 fmt.Println(boilerplate)
 ```
-![Testimonial](./assets/components-testimonial.png)
+![Testimonial](./_assets/components-testimonial.png)
+
+- **Promo**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+promo := acorn.NewPromo(&acorntypes.PromoItems{
+    Promo: &acorntypes.PromoParams{Value: "25"},
+    Symbol: &acorntypes.PromoParams{Value: "%"},
+    Description: &acorntypes.PromoParams{Value: "OFF"},
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    promo,
+}, nil)
+```
+![Promo default](./_assets/components-promo01.png)
+
+```go
+acorn := acornmail.NewAcornEmailComponents()
+sizes := acornstyles.GetSizes()
+
+promo := acorn.NewPromo(&acorntypes.PromoItems{
+    Promo: &acorntypes.PromoParams{
+        Value: "25",
+        Size:  sizes.PX108,
+    },
+    Symbol: &acorntypes.PromoParams{
+        Value: "%",
+        Color: acornstyles.GetColors().Green.M700,
+        Size:  sizes.PX36,
+    },
+    Description: &acorntypes.PromoParams{
+        Value: "OFF",
+        Size:  sizes.PX24,
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    promo,
+}, nil)
+```
+![Promo custom](./_assets/components-promo02.png)
+
+- **Coupon**
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+color := acornstyles.GetColors()
+aligns := acornstyles.GetAligns()
+
+coupon := acorn.NewCoupon(&acorntypes.CouponParams{
+    Content: acorn.NewGrid([][]*acorntypes.ColumnParams{
+        {{
+            Content: `
+            <div style="font-size: 13px; text-transform: uppercase;">¡Gracias por registrarte!<br>Disfruta</div>
+            <div style="font-size: 72px; font-weight: 700; line-height: 100%;">$10 DESC</div>
+            <div class="spacer py-sm-8" style="line-height: 16px;">‌</div>
+            <div style="font-size: 20px; letter-spacing: 2px; line-height: 100%; text-transform: uppercase;">En tu primera compra</div>
+            `,
+            Styles: &acorntypes.ColumnStyles{
+                Align:     aligns.Center,
+                TextColor: color.White,
+            },
+        }},
+        nil,
+    }),
+    Button: &acorntypes.ButtonParams{
+        Text: "COMPRA AHORA",
+        Styles: &acorntypes.ButtonStyles{
+            Color:     color.White,
+            TextColor: color.Blue.M500,
+            Align:     aligns.Center,
+        },
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    coupon,
+}, acornstyles.WithoutMargins())
+```
+![Coupon default](./_assets/components-coupon01.png)
+
+```go
+acorn := acornmail.NewAcornEmailComponents()
+
+color := acornstyles.GetColors()
+aligns := acornstyles.GetAligns()
+
+promo := acorn.NewPromo(&acorntypes.PromoItems{
+    Promo:       &acorntypes.PromoParams{Value: "25"},
+    Symbol:      &acorntypes.PromoParams{Value: "%"},
+    Description: &acorntypes.PromoParams{Value: "DESC"},
+})
+
+label := acorn.NewLabel(&acorntypes.LabelParams{
+    Text: "25OFFTODAY",
+    Styles: &acorntypes.LabelStyles{
+        Outlined:  true,
+        TextColor: color.Red.M500,
+        Color:     color.Red.M500,
+    },
+})
+
+coupon := acorn.NewCoupon(&acorntypes.CouponParams{
+    Content: acorn.NewGrid([][]*acorntypes.ColumnParams{
+        {{Content: promo}},
+        {{
+            Content: `Con el cupón ` + label,
+            Styles: &acorntypes.ColumnStyles{
+                Align:     aligns.Center,
+                TextColor: color.Grey.M400,
+            },
+        }},
+        nil,
+    }),
+    Button: &acorntypes.ButtonParams{
+        Text: "Canjear cupón →",
+        Styles: &acorntypes.ButtonStyles{
+            Color:     color.Black,
+            TextColor: color.White,
+            Align:     aligns.Center,
+        },
+    },
+    Styles: &acorntypes.CouponStyles{
+        Dashed: true,
+    },
+})
+
+boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{
+    coupon,
+}, acornstyles.WithoutMargins())
+```
+![Coupon dashed](./_assets/components-coupon02.png)
 
 #### Tipos
 
 - *Importación*
 ```go
-import "github.com/arskang/gomail-acorn-template/acorntypes"
+import "github.com/arskang/acornmail/acorntypes"
 ```
 
 - *Básicos*
@@ -518,6 +674,7 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
     - Types ```acorntypes.Types```
     - AcornComponents ```acorntypes.AcornComponents```
     - AcornVariables ```acorntypes.AcornVariables```
+    - FontSize ```acorntypes.FontSize```
 
 - *Compuestos*
 
@@ -536,12 +693,16 @@ import "github.com/arskang/gomail-acorn-template/acorntypes"
     - TestimonialParams ```acorntypes.TestimonialParams```
     - TestimonialStyles ```acorntypes.TestimonialStyles```
     - ImageParams ```acorntypes.ImageParams```
+    - CouponParams ```acorntypes.CouponParams```
+    - PromoItems ```acorntypes.PromoItems```
+    - PromoParams ```acorntypes.PromoParams```
+    - CouponStyles ```acorntypes.CouponStyles```
 
 #### Estilos
 
 - *Importación*
 ```go
-import "github.com/arskang/gomail-acorn-template/acornstyles"
+import "github.com/arskang/acornmail/acornstyles"
 ```
 
 - *Tipo de botones*
@@ -562,6 +723,26 @@ fmt.Println(aligns.Right)
 fmt.Println(aligns.Left)
 ```
 
+- *Tamaños de letra*
+
+```go
+sizes := acornstyles.GetSizes()
+fmt.Println(sizes.Px12)
+fmt.Println(sizes.Px24)
+fmt.Println(sizes.Px36)
+fmt.Println(sizes.Px48)
+fmt.Println(sizes.Px60)
+fmt.Println(sizes.Px72)
+fmt.Println(sizes.Px84)
+fmt.Println(sizes.Px96)
+fmt.Println(sizes.Px108)
+fmt.Println(sizes.Px120)
+
+customSize := acornstyles.NewAcornSize(10)
+fmt.Println(customSize)
+// 10px
+```
+
 - *Ancho de columnas*
 
 ```go
@@ -574,8 +755,8 @@ fmt.Println(widthColumn.OneThird) // 1/3
 fmt.Println(widthColumn.TwoThird) // 2/3
 ```
 
-![Grid three](./assets/grid-three.png)
-![Grid four](./assets/grid-four.png)
+![Grid three](./_assets/grid-three.png)
+![Grid four](./_assets/grid-four.png)
 
 - *Colores*
 
@@ -592,6 +773,6 @@ if err != nil {
 fmt.Println(customColor)
 ```
 
-![Material color 01](./assets/material-color-01.jpeg)
-![Material color 02](./assets/material-color-02.jpeg)
-![Material color 03](./assets/material-color-03.jpeg)
+![Material color 01](./_assets/material-color-01.jpeg)
+![Material color 02](./_assets/material-color-02.jpeg)
+![Material color 03](./_assets/material-color-03.jpeg)

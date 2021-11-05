@@ -3,14 +3,15 @@ package acorn
 import (
 	"strings"
 
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type accordion struct {
 	Params []*acorntypes.AccordionParams
 }
 
+// Generate a new accordion html element
 func (h HTML) NewAccordion(params []*acorntypes.AccordionParams) string {
 	a := &accordion{Params: params}
 	return a.getAccordion()

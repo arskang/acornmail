@@ -1,14 +1,15 @@
 package acorn
 
 import (
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
 type alert struct {
 	Params *acorntypes.AlertParams
 }
 
+// Generate a new alert html element
 func (h HTML) NewAlert(params *acorntypes.AlertParams) string {
 	a := &alert{Params: params}
 	return a.getAlert()

@@ -1,14 +1,16 @@
 package acorn
 
 import (
-	"github.com/arskang/gomail-acorn-template/acornstyles"
-	"github.com/arskang/gomail-acorn-template/acorntypes"
+	"github.com/arskang/acornmail/acornstyles"
+	"github.com/arskang/acornmail/acorntypes"
 )
 
+// Generate a new spacer html element
 func (h HTML) NewSpacer() string {
 	return `<div class="spacer py-sm-16" style="line-height: 32px;">&zwnj;</div>`
 }
 
+// Generate a new divider html element
 func (h HTML) NewDivider(color *acorntypes.Color) string {
 	acornColors := acornstyles.GetColors()
 	c := acornColors.Grey.M400
