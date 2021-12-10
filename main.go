@@ -2,7 +2,6 @@ package acornmail
 
 import (
 	"bytes"
-	"fmt"
 	"html/template"
 
 	"github.com/arskang/acornmail/acorn"
@@ -25,8 +24,6 @@ func MergeVariables(temp string, variables acorntypes.AcornVariables) (string, e
 	if err != nil {
 		return "", err
 	}
-
-	fmt.Println(tpl.String())
 
 	return tpl.String(), nil
 }
