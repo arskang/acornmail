@@ -9,7 +9,7 @@ type coupon struct {
 	Params *acorntypes.CouponParams
 }
 
-// Generate a new coupon html element
+// NewCoupon generate a new coupon html element
 func (h HTML) NewCoupon(params *acorntypes.CouponParams) string {
 	p := &coupon{Params: params}
 	var button string
@@ -19,7 +19,7 @@ func (h HTML) NewCoupon(params *acorntypes.CouponParams) string {
 	return p.getCoupon(button)
 }
 
-// Generate a new promo html element
+// NewPromo generate a new promo html element
 func (h HTML) NewPromo(items *acorntypes.PromoItems) string {
 	sizes := acornstyles.GetSizes()
 	colorBlack := acornstyles.GetColors().Black
