@@ -184,10 +184,10 @@ func TestExample(t *testing.T) {
 }
 
 func TestGrid(t *testing.T) {
-
+	width := 800
 	acorn := acornmail.NewAcornEmailComponents()
 
-	widthColumns := acornstyles.GetWidthColumns()
+	widthColumns := acornstyles.GetWidthColumns(width)
 	colors := acornstyles.GetColors()
 
 	grid := acorn.NewGrid([][]*acorntypes.ColumnParams{
@@ -218,7 +218,7 @@ func TestGrid(t *testing.T) {
 		},
 	})
 
-	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil)
+	boilerplate := acorn.GetBoilerplate(acorntypes.AcornComponents{grid}, nil, width)
 
 	t.Log(boilerplate)
 

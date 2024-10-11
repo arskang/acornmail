@@ -1,16 +1,21 @@
 package acorn
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/arskang/acornmail/acorntypes"
 )
 
 // Generate a new boilerplate html element
-func (h HTML) GetBoilerplate(elements acorntypes.AcornComponents, withoutMargins *bool) string {
+func (h HTML) GetBoilerplate(elements acorntypes.AcornComponents, withoutMargins *bool, width ...int) string {
 	spacer := h.NewSpacer()
 	if withoutMargins != nil && *withoutMargins {
 		spacer = ""
+	}
+	defaultWidth := 600
+	if len(width) > 0 {
+		defaultWidth = width[0]
 	}
 	return `
 	<!DOCTYPE html>
@@ -149,7 +154,7 @@ func (h HTML) GetBoilerplate(elements acorntypes.AcornComponents, withoutMargins
 		<table lang="es" bgcolor="#EEEEEE" cellpadding="16" cellspacing="0" role="presentation" width="100%">
 			<tr>
 				<td align="center">
-					<table class="container" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" role="presentation" width="600">
+					<table class="container" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" role="presentation" width="` + fmt.Sprint(defaultWidth) + `">
 						<tr>
 							<td align="left">
 								` + spacer + strings.Join(elements, " ") + spacer + `
